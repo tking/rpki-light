@@ -17,7 +17,7 @@ Expires: June 9, 2016                                    A. Lambrianidis
 
 Abstract
 
-   This document defines a new non-transitive BGP extended community to
+   This document defines a new, non-transitive BGP extended community to
    signal RPKI validation results from a route-server to its peers.
    Upon reception of RPKI validation results peers can use this
    information in their local routing decision process.
@@ -92,18 +92,18 @@ Table of Contents
 
 1.  Introduction
 
-   Nowadays, many routers do not support RPKI-based [RFC6480] route
-   origin validation.  In order to bust acceptance and usage of RPKI and
-   hence ultimately increase the security of the Internet routing system
-   IXPs started providing RPKI-based route origin validation at the
-   route-server [I-D.ietf-idr-ix-bgp-route-server].  The result of this
-   route origin validation is signaled to peers by using a BGP extended
-   community introduced in this document.
+   RPKI-based [RFC6480] route origin validation can be a significant
+   operational burden for BGP peers to implement and adopt. In order to 
+   boost acceptance and usage of RPKI and ultimately increase the security 
+   of the Internet routing system, IXPs may provide RPKI-based route 
+   origin validation at the route-server [I-D.ietf-idr-ix-bgp-route-server].  
+   The result of this route origin validation is signaled to peers by 
+   using a BGP extended community introduced in this document.
 
    Peers receiving the route origin validation result from the route-
-   server can use this information in their local routing decision
-   process for acceptance, rejection, and preference of a particular
-   route.
+   server(s) can use this information in their local routing decision
+   process for acceptance, rejection, preference, or other traffic
+   engineering purposes of a particular route.
 
 
 
@@ -154,12 +154,12 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 3.1.  Local Routing Decision Process
 
-   A peer receiving a RPKI validation result from the route server MAY
+   A peer receiving an RPKI validation result from the route server MAY
    use the information in its own local routing decision process.  The
    local routing decision process SHOULD apply to the rules as described
    in section 5 [RFC6811].
 
-   A peer receiving a RPKI validation result from the route server MAY
+   A peer receiving an RPKI validation result from the route server MAY
    redistribute this information within its own AS.
 
 
@@ -173,22 +173,20 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 3.2.  Route-Server Receiving the Extended Community for RPKI Validation
       Results from a Route-Server to Peers
 
-   Route-server at IXPs receiving routes from its peers containing the
-   extended community described in this document MUST filter the
+   An IXP route-server receiving routes from its peers containing the
+   extended community described in this document MUST remove the
    extended community before the route is re-distributed to its peers.
-   This is required regardless of if the route-server is executing RPKI
+   This is required regardless of whether the route-server is executing RPKI
    origin validation or not.
 
-   If the filtering as described above is not executed by the route-
-   server a malicious peer could send a route tagged with any arbitrary
-   RPKI validation result to the route-server which re-distributes the
-   route to all peers.  Peers receiving and interpreting the extended
-   community described this document could be tricked into bad routing
-   decisions.
-
+   Failure to do so would allow opportunistic peers to advertise routes
+   tagged with arbitrary RPKI validation results via a route-server,
+   influencing maliciously the decision process of other route-server
+   peers. 
+   
 3.3.  Error Handling at Peers
 
-   A route send by a route-server SHOULD only contain none or one
+   A route sent by a route-server SHOULD only contain none or one
    extended community as described in this document.
 
    A peer receiving a route from a route-server containing more than one
@@ -291,7 +289,7 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
    Email: daniel.kopp@de-cix.net
 
 
-   Aristidis
+   Aristidis Lambrianidis
    Amsterdam Internet Exchange
    Frederiksplein 42
    Amsterdam  1017 XN
