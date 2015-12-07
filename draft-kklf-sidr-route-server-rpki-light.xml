@@ -22,7 +22,7 @@
 
 <rfc category="std" docName="draft-kklf-sidr-route-server-rpki-light-00">
 	<front>
-		<title>Signalling RPKI Validation Results from a Route-Server to Peers</title>
+		<title>Signaling RPKI Validation Results from a Route-Server to Peers</title>
 		
 		<author fullname="Thomas King" initials="T." surname="King">
 			<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
@@ -80,7 +80,7 @@
 		<abstract>
 			<t>
 				This document defines a new non-transitive BGP extended community to signal RPKI validation
-				results from a route-server to its peers. Upon receiption of RPKI validation results peers can use
+				results from a route-server to its peers. Upon reception of RPKI validation results peers can use
 				this information in their local routing decision process.
 			</t>
 		</abstract>
@@ -105,11 +105,11 @@
 	<middle>
 		<section anchor="intro" title="Introduction">
 			<t>
-				Nowadys, many routers do not support RPKI-based <xref target="RFC6480"/> route origin validation.
-				In order to bust acceptance and usage of RPKI and hence ulimatively increase the security
+				Nowadays, many routers do not support RPKI-based <xref target="RFC6480"/> route origin validation.
+				In order to bust acceptance and usage of RPKI and hence ultimately increase the security
 				of the Internet routing system IXPs started providing RPKI-based route origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
-				The result of this route orgin validation is signalled to peers by using a BGP extended community
+				The result of this route origin validation is signaled to peers by using a BGP extended community
 				introduced in this document.
 			</t>
 
@@ -125,8 +125,8 @@
 				The extended community for signaling RPKI validation result from a route-server to peers is an opaque extended community
 				(see <xref target="RFC4360">section 3.3</xref>)	with the following structure:
    			
-   			<figure>
-   			<artwork>
+   				<figure>
+   					<artwork>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -134,14 +134,14 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                    Reserved                   |Validation res.|
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   			</artwork>
-   			</figure>
+   					</artwork>
+   				</figure>
    			</t>
 
    			<t>
    				 The value of the high-order octet of the extended type is set to 0x43 in order to reflect the
-   				 non-transitive nature. The low-order octet of the extended type is set to 0x02. The reserverd
-   				 field MUST be set to 0 and ignored upon receiption.
+   				 non-transitive nature. The low-order octet of the extended type is set to 0x02. The reserved
+   				 field MUST be set to 0 and ignored upon reception.
    			</t>
    			<t> 
    				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the RPKI validation result
@@ -166,7 +166,7 @@
 			<section anchor="local" title="Local Routing Decision Process">
 				<t>
 					A peer receiving a RPKI validation result from the route server MAY use the information in its
-					own local routing decision process. The local routing dicision process SHOULD apply to the rules
+					own local routing decision process. The local routing decision process SHOULD apply to the rules
 					as described in <xref target="RFC6811">section 5</xref>.
 				</t>
 				<t>
@@ -182,8 +182,8 @@
 					This is required regardless of if the route-server is executing RPKI origin validation or not.
 				</t>
 				<t>
-					If the filtering as described above is not executed by the route-server a malious peer could send a route
-					tagged with any arbritary RPKI validation result to the route-server which re-distributes the
+					If the filtering as described above is not executed by the route-server a malicious peer could send a route
+					tagged with any arbitrary RPKI validation result to the route-server which re-distributes the
 					route to all peers. Peers receiving and interpreting the extended community described this document
 					could be tricked into bad routing decisions.
 				</t>

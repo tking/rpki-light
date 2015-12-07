@@ -5,21 +5,21 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: June 7, 2016                                    A. Lambrianidis
+Expires: June 9, 2016                                    A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                        December 5, 2015
+                                                        December 7, 2015
 
 
-    Signalling RPKI Validation Results from a Route-Server to Peers
+     Signaling RPKI Validation Results from a Route-Server to Peers
                draft-kklf-sidr-route-server-rpki-light-00
 
 Abstract
 
    This document defines a new non-transitive BGP extended community to
    signal RPKI validation results from a route-server to its peers.
-   Upon receiption of RPKI validation results peers can use this
+   Upon reception of RPKI validation results peers can use this
    information in their local routing decision process.
 
 Requirements Language
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 7, 2016.
+   This Internet-Draft will expire on June 9, 2016.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 1]
+King, et al.              Expires June 9, 2016                  [Page 1]
 
-Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
+Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 Copyright Notice
@@ -92,13 +92,13 @@ Table of Contents
 
 1.  Introduction
 
-   Nowadys, many routers do not support RPKI-based [RFC6480] route
+   Nowadays, many routers do not support RPKI-based [RFC6480] route
    origin validation.  In order to bust acceptance and usage of RPKI and
-   hence ulimatively increase the security of the Internet routing
-   system IXPs started providing RPKI-based route origin validation at
-   the route-server [I-D.ietf-idr-ix-bgp-route-server].  The result of
-   this route orgin validation is signalled to peers by using a BGP
-   extended community introduced in this document.
+   hence ultimately increase the security of the Internet routing system
+   IXPs started providing RPKI-based route origin validation at the
+   route-server [I-D.ietf-idr-ix-bgp-route-server].  The result of this
+   route origin validation is signaled to peers by using a BGP extended
+   community introduced in this document.
 
    Peers receiving the route origin validation result from the route-
    server can use this information in their local routing decision
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 2]
+King, et al.              Expires June 9, 2016                  [Page 2]
 
-Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
+Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 2.  Extended Community for Signaling RPKI Validation Results from a
@@ -131,8 +131,8 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
 
    The value of the high-order octet of the extended type is set to 0x43
    in order to reflect the non-transitive nature.  The low-order octet
-   of the extended type is set to 0x02.  The reserverd field MUST be set
-   to 0 and ignored upon receiption.
+   of the extended type is set to 0x02.  The reserved field MUST be set
+   to 0 and ignored upon reception.
 
    [I-D.ietf-sidr-origin-validation-signaling] proposes an encoding of
    the RPKI validation result [RFC6811] as follows:
@@ -156,7 +156,7 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
 
    A peer receiving a RPKI validation result from the route server MAY
    use the information in its own local routing decision process.  The
-   local routing dicision process SHOULD apply to the rules as described
+   local routing decision process SHOULD apply to the rules as described
    in section 5 [RFC6811].
 
    A peer receiving a RPKI validation result from the route server MAY
@@ -165,9 +165,9 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 3]
+King, et al.              Expires June 9, 2016                  [Page 3]
 
-Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
+Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 3.2.  Route-Server Receiving the Extended Community for RPKI Validation
@@ -180,7 +180,7 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
    origin validation or not.
 
    If the filtering as described above is not executed by the route-
-   server a malious peer could send a route tagged with any arbritary
+   server a malicious peer could send a route tagged with any arbitrary
    RPKI validation result to the route-server which re-distributes the
    route to all peers.  Peers receiving and interpreting the extended
    community described this document could be tricked into bad routing
@@ -221,9 +221,9 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 4]
+King, et al.              Expires June 9, 2016                  [Page 4]
 
-Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
+Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 6.  References
@@ -277,9 +277,9 @@ Authors' Addresses
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 5]
+King, et al.              Expires June 9, 2016                  [Page 5]
 
-Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
+Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
    Daniel Kopp
@@ -333,4 +333,4 @@ Internet-DraftSignalling RPKI Validation Results from a RouDecember 2015
 
 
 
-King, et al.              Expires June 7, 2016                  [Page 6]
+King, et al.              Expires June 9, 2016                  [Page 6]
