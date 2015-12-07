@@ -50,7 +50,7 @@
 			</address>
 		</author>
 
-		<author fullname="Aristidis" initials="A." surname="Lambrianidis">
+		<author fullname="Aristidis Lambrianidis" initials="A." surname="Lambrianidis">
        		<organization abbrev="AMS-IX">Amsterdam Internet Exchange</organization>
        		<address>
            		<postal>
@@ -62,7 +62,8 @@
            		<email>aristidis.lambrianidis@ams-ix.net</email>
        		</address>
   		</author>
-		<author fullname="Arnaud" initials="A." surname="Fenioux">
+
+		<author fullname="Arnaud Fenioux" initials="A." surname="Fenioux">
 			<organization>France-IX</organization>
 			<address>
 				<postal>
@@ -79,7 +80,7 @@
 
 		<abstract>
 			<t>
-				This document defines a new non-transitive BGP extended community to signal RPKI validation
+				This document defines a new, non-transitive BGP extended community to signal RPKI validation
 				results from a route-server to its peers. Upon reception of RPKI validation results peers can use
 				this information in their local routing decision process.
 			</t>
@@ -105,18 +106,18 @@
 	<middle>
 		<section anchor="intro" title="Introduction">
 			<t>
-				Nowadays, many routers do not support RPKI-based <xref target="RFC6480"/> route origin validation.
-				In order to bust acceptance and usage of RPKI and hence ultimately increase the security
-				of the Internet routing system IXPs started providing RPKI-based route origin validation at the
+				RPKI-based <xref target="RFC6480"/> route origin validation can be a significant operational burden for BGP peers
+				to implement and adopt. In order to boost acceptance and usage of RPKI and ultimately increase the security
+				of the Internet routing system, IXPs may provide RPKI-based route origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
 				The result of this route origin validation is signaled to peers by using a BGP extended community
 				introduced in this document.
 			</t>
 
 			<t>
-				Peers receiving the route origin validation result from the route-server can use this
-				information in their local routing decision process for acceptance, rejection, and preference of a
-				particular route.
+				Peers receiving the route origin validation result from the route-server(s) can use this
+				information in their local routing decision process for acceptance, rejection, preference, or other
+				traffic engineering purposes of a particular route.
 			</t>
 		</section>
 
@@ -165,33 +166,31 @@
 		<section anchor="recommendation" title="Operational Recommendations">
 			<section anchor="local" title="Local Routing Decision Process">
 				<t>
-					A peer receiving a RPKI validation result from the route server MAY use the information in its
+					A peer receiving an RPKI validation result from the route server MAY use the information in its
 					own local routing decision process. The local routing decision process SHOULD apply to the rules
 					as described in <xref target="RFC6811">section 5</xref>.
 				</t>
 				<t>
-					A peer receiving a RPKI validation result from the route server MAY redistribute this information
+					A peer receiving an RPKI validation result from the route server MAY redistribute this information
 					within its own AS.
 				</t>
 			</section>
 
 			<section anchor="routeserver" title="Route-Server Receiving the Extended Community for RPKI Validation Results from a Route-Server to Peers">
 				<t>
-					Route-server at IXPs receiving routes from its peers containing the extended community described
-					in this document MUST filter the extended community before the route is re-distributed to its peers.
-					This is required regardless of if the route-server is executing RPKI origin validation or not.
+					An IXP route-server receiving routes from its peers containing the extended community described
+					in this document MUST remove the extended community before the route is re-distributed to its peers.
+					This is required regardless of whether the route-server is executing RPKI origin validation or not.
 				</t>
 				<t>
-					If the filtering as described above is not executed by the route-server a malicious peer could send a route
-					tagged with any arbitrary RPKI validation result to the route-server which re-distributes the
-					route to all peers. Peers receiving and interpreting the extended community described this document
-					could be tricked into bad routing decisions.
+					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary RPKI validation
+					results via a route-server, influencing maliciously the decision process of other route-server peers.
 				</t>
 			</section>
 
 			<section anchor="morespecific" title="Error Handling at Peers">
 				<t>
-					A route send by a route-server SHOULD only contain none or one extended community as described in this document.
+					A route sent by a route-server SHOULD only contain none or one extended community as described in this document.
 				</t>
 
 				<t>
