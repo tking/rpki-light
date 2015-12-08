@@ -302,7 +302,7 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
    Arnaud Fenioux
    France-IX
-   129 Boulevard Malesherbes
+   88 Avenue Des Ternes
    Paris  75017
    FR
 
