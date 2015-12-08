@@ -93,18 +93,18 @@ Table of Contents
 1.  Introduction
 
    RPKI-based [RFC6480] route origin validation can be a significant
-   operational burden for BGP peers to implement and adopt. In order to 
-   boost acceptance and usage of RPKI and ultimately increase the security 
-   of the Internet routing system, IXPs may provide RPKI-based route 
-   origin validation at the route-server [I-D.ietf-idr-ix-bgp-route-server].  
-   The result of this route origin validation is signaled to peers by 
-   using a BGP extended community introduced in this document.
+   operational burden for BGP peers to implement and adopt.  In order to
+   boost acceptance and usage of RPKI and ultimately increase the
+   security of the Internet routing system, IXPs may provide RPKI-based
+   route origin validation at the route-server
+   [I-D.ietf-idr-ix-bgp-route-server].  The result of this route origin
+   validation is signaled to peers by using a BGP extended community
+   introduced in this document.
 
    Peers receiving the route origin validation result from the route-
    server(s) can use this information in their local routing decision
    process for acceptance, rejection, preference, or other traffic
    engineering purposes of a particular route.
-
 
 
 
@@ -176,14 +176,14 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
    An IXP route-server receiving routes from its peers containing the
    extended community described in this document MUST remove the
    extended community before the route is re-distributed to its peers.
-   This is required regardless of whether the route-server is executing RPKI
-   origin validation or not.
+   This is required regardless of whether the route-server is executing
+   RPKI origin validation or not.
 
    Failure to do so would allow opportunistic peers to advertise routes
    tagged with arbitrary RPKI validation results via a route-server,
    influencing maliciously the decision process of other route-server
-   peers. 
-   
+   peers.
+
 3.3.  Error Handling at Peers
 
    A route sent by a route-server SHOULD only contain none or one
@@ -213,6 +213,8 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
    The introduction of a mechanisms described in this document does not
    pose a new class of attack vectors to the relationship between route-
    servers and peers.
+
+
 
 
 
@@ -298,7 +300,7 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
    Email: aristidis.lambrianidis@ams-ix.net
 
 
-   Arnaud
+   Arnaud Fenioux
    France-IX
    129 Boulevard Malesherbes
    Paris  75017

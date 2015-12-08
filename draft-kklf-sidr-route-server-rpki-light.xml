@@ -110,6 +110,7 @@
 				to implement and adopt. In order to boost acceptance and usage of RPKI and ultimately increase the security
 				of the Internet routing system, IXPs may provide RPKI-based route origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
+				
 				The result of this route origin validation is signaled to peers by using a BGP extended community
 				introduced in this document.
 			</t>
