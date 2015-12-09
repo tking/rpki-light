@@ -5,11 +5,11 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: June 9, 2016                                    A. Lambrianidis
+Expires: June 11, 2016                                   A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                        December 7, 2015
+                                                        December 9, 2015
 
 
      Signaling RPKI Validation Results from a Route-Server to Peers
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 9, 2016.
+   This Internet-Draft will expire on June 11, 2016.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 1]
+King, et al.              Expires June 11, 2016                 [Page 1]
 
 Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 2]
+King, et al.              Expires June 11, 2016                 [Page 2]
 
 Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
@@ -165,7 +165,7 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 3]
+King, et al.              Expires June 11, 2016                 [Page 3]
 
 Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
@@ -221,7 +221,7 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 4]
+King, et al.              Expires June 11, 2016                 [Page 4]
 
 Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
@@ -277,7 +277,7 @@ Authors' Addresses
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 5]
+King, et al.              Expires June 11, 2016                 [Page 5]
 
 Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
@@ -333,4 +333,4 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 
-King, et al.              Expires June 9, 2016                  [Page 6]
+King, et al.              Expires June 11, 2016                 [Page 6]
