@@ -7,6 +7,7 @@
 		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
 		<!ENTITY I-D.ietf-sidr-origin-validation-signaling SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-origin-validation-signaling-07.xml">
 		<!ENTITY I-D.ietf-idr-ix-bgp-route-server SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-ix-bgp-route-server.xml">
+		<!ENTITY I-D.ietf-sidr-rpki-validation-reconsidered SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-rpki-validation-reconsidered-02.xml">
 ]>
 
 <?rfc comments="yes"?>
@@ -80,9 +81,11 @@
 
 		<abstract>
 			<t>
-				This document defines a new, non-transitive BGP extended community to signal RPKI validation
-				results from a route-server to its peers. Upon reception of RPKI validation results peers can use
-				this information in their local routing decision process.
+				This document defines the usage of the BGP Prefix Origin Validation State Extended
+				Community <xref target="I-D.ietf-sidr-origin-validation-signaling"/> to signal
+				RPKI validation results from a route-server to its peers. Upon reception of RPKI
+				validation results peers can use this information in their local routing decision
+				process.
 			</t>
 		</abstract>
 
@@ -106,13 +109,13 @@
 	<middle>
 		<section anchor="intro" title="Introduction">
 			<t>
-				RPKI-based <xref target="RFC6480"/> route origin validation can be a significant operational burden for BGP peers
+				RPKI-based route origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
 				to implement and adopt. In order to boost acceptance and usage of RPKI and ultimately increase the security
 				of the Internet routing system, IXPs may provide RPKI-based route origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
 				
-				The result of this route origin validation is signaled to peers by using a BGP extended community
-				introduced in this document.
+				The result of this route origin validation is signaled to peers by using the BGP Prefix Origin Validation State
+				Extended Community as introduced in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>.
 			</t>
 
 			<t>
@@ -122,29 +125,11 @@
 			</t>
 		</section>
 
-		<section anchor="extendedcommunity" title="Extended Community for Signaling RPKI Validation Results from a Route-Server to Peers">
+		<section anchor="extendedcommunity" title="Signaling RPKI Validation Results from a Route-Server to Peers">
 			<t>
-				The extended community for signaling RPKI validation result from a route-server to peers is an opaque extended community
-				(see <xref target="RFC4360">section 3.3</xref>)	with the following structure:
-   			
-   				<figure>
-   					<artwork>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|       0x43    |      0x02     |             Reserved          |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|                    Reserved                   |Validation res.|
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   					</artwork>
-   				</figure>
-   			</t>
-
-   			<t>
-   				 The value of the high-order octet of the extended type is set to 0x43 in order to reflect the
-   				 non-transitive nature. The low-order octet of the extended type is set to 0x02. The reserved
-   				 field MUST be set to 0 and ignored upon reception.
-   			</t>
+				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>)
+				is utilized for signaling RPKI validation result from a route-server to peers.
+			</t>
    			<t> 
    				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the RPKI validation result
    				<xref target="RFC6811"/> as follows:
@@ -159,8 +144,8 @@
    			</texttable>
    			
    			<t>
-   				This encoding is re-used and stored in the last octet of
-   				the extended community.
+   				This encoding is re-used. Route-servers providing RPKI-based route origin validation set the validation state
+   				according to the RPKI validation result (see <xref target="I-D.ietf-sidr-rpki-validation-reconsidered"/>).
    			</t>
  		</section>
 
@@ -177,10 +162,10 @@
 				</t>
 			</section>
 
-			<section anchor="routeserver" title="Route-Server Receiving the Extended Community for RPKI Validation Results from a Route-Server to Peers">
+			<section anchor="routeserver" title="Route-Server Receiving the BGP Prefix Origin Validation State Extended Community">
 				<t>
-					An IXP route-server receiving routes from its peers containing the extended community described
-					in this document MUST remove the extended community before the route is re-distributed to its peers.
+					An IXP route-server receiving routes from its peers containing the BGP Prefix Origin Validation State Extended Community
+					MUST remove the extended community before the route is re-distributed to its peers.
 					This is required regardless of whether the route-server is executing RPKI origin validation or not.
 				</t>
 				<t>
@@ -191,25 +176,30 @@
 
 			<section anchor="morespecific" title="Error Handling at Peers">
 				<t>
-					A route sent by a route-server SHOULD only contain none or one extended community as described in this document.
-				</t>
+					A route sent by a route-server SHOULD only contain none or one BGP Prefix Origin
+   					Validation State Extended Community.
+   				</t>
 
 				<t>
-					A peer receiving a route from a route-server containing more than one extended community as described in this document
-					should only consider the largest value (as described in <xref target="values"/>) in the validation result field
-					and disregard the other values. Values larger than two in the validation result field MUST be disregarded.
+					A peer receiving a route from a route-server containing more than one BGP Prefix Origin
+   					Validation State Extended Community SHOULD only consider the largest value (as described in
+   					<xref target="values"/>) in the validation result field and disregard the other values. Values
+   					larger than two in the validation result field MUST be disregarded.
 				</t>
 			</section>
 		</section>
 
 		<section anchor="iana" title="IANA Considerations">
 			<t>
+				None.
+			</t>
+			<!--><t>
 				The IANA is requested to register the value 0x02 for the low-order octet of the extended type in the
 				non-transitive range for the concept described in this document.
 			</t>
 			<t>
 				The extended community should be called "Route-server RPKI validation result extended community".
-			</t>
+			</t>-->
 		</section>
 
 		<section anchor="security" title="Security Considerations">
@@ -236,6 +226,7 @@
    		&RFC2119;
    		&RFC4360;
    		&RFC6811;
+   		&I-D.ietf-sidr-rpki-validation-reconsidered;
    		
 
 		</references>
