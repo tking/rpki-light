@@ -5,23 +5,23 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: June 16, 2016                                   A. Lambrianidis
+Expires: June 3, 2016                                    A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                       December 14, 2015
+                                                           December 2015
 
 
-     Signaling RPKI Validation Results from a Route-Server to Peers
+Signaling Prefix Origin Validation Results from a Route-Server to Peers
                draft-kklf-sidr-route-server-rpki-light-00
 
 Abstract
 
    This document defines the usage of the BGP Prefix Origin Validation
    State Extended Community [I-D.ietf-sidr-origin-validation-signaling]
-   to signal RPKI validation results from a route-server to its peers.
-   Upon reception of RPKI validation results peers can use this
-   information in their local routing decision process.
+   to signal prefix origin validation results from a route-server to its
+   peers.  Upon reception of prefix origin validation results peers can
+   use this information in their local routing decision process.
 
 Requirements Language
 
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 16, 2016.
+   This Internet-Draft will expire on June 3, 2016.
 
 
 
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 1]
+King, et al.              Expires June 3, 2016                  [Page 1]
 
-Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
 Copyright Notice
@@ -76,8 +76,8 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Signaling RPKI Validation Results from a Route-Server to
-       Peers . . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Signaling Prefix Origin Validation Results from a Route-
+       Server to Peers . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Operational Recommendations . . . . . . . . . . . . . . . . .   3
      3.1.  Local Routing Decision Process  . . . . . . . . . . . . .   3
      3.2.  Route-Server Receiving the BGP Prefix Origin Validation
@@ -96,7 +96,7 @@ Table of Contents
    operational burden for BGP peers to implement and adopt.  In order to
    boost acceptance and usage of RPKI and ultimately increase the
    security of the Internet routing system, IXPs may provide RPKI-based
-   route origin validation at the route-server
+   prefix origin validation at the route-server
    [I-D.ietf-idr-ix-bgp-route-server].  The result of this route origin
    validation is signaled to peers by using the BGP Prefix Origin
    Validation State Extended Community as introduced in
@@ -109,19 +109,21 @@ Table of Contents
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 2]
+King, et al.              Expires June 3, 2016                  [Page 2]
 
-Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
-2.  Signaling RPKI Validation Results from a Route-Server to Peers
+2.  Signaling Prefix Origin Validation Results from a Route-Server to
+    Peers
 
    The BGP Prefix Origin Validation State Extended Community (as defined
    in [I-D.ietf-sidr-origin-validation-signaling]) is utilized for
-   signaling RPKI validation result from a route-server to peers.
+   signaling prefix origin validation result from a route-server to
+   peers.
 
    [I-D.ietf-sidr-origin-validation-signaling] proposes an encoding of
-   the RPKI validation result [RFC6811] as follows:
+   the prefix origin validation result [RFC6811] as follows:
 
                            +-------+-----------+
                            | Value | Meaning   |
@@ -133,21 +135,21 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
                                   Table 1
 
-   This encoding is re-used.  Route-servers providing RPKI-based route
-   origin validation set the validation state according to the RPKI
-   validation result (see [I-D.ietf-sidr-rpki-validation-reconsidered]).
+   This encoding is re-used.  Route-servers providing RPKI-based origin
+   origin validation set the validation state according to the prefix
+   origin validation result (see [RFC6811]).
 
 3.  Operational Recommendations
 
 3.1.  Local Routing Decision Process
 
-   A peer receiving an RPKI validation result from the route server MAY
-   use the information in its own local routing decision process.  The
-   local routing decision process SHOULD apply to the rules as described
-   in section 5 [RFC6811].
+   A peer receiving prefix origin validation result from the route
+   server MAY use the information in its own local routing decision
+   process.  The local routing decision process SHOULD apply to the
+   rules as described in section 5 [RFC6811].
 
-   A peer receiving an RPKI validation result from the route server MAY
-   redistribute this information within its own AS.
+   A peer receiving a prefix origin validation result from the route
+   server MAY redistribute this information within its own AS.
 
 3.2.  Route-Server Receiving the BGP Prefix Origin Validation State
       Extended Community
@@ -156,19 +158,20 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
    BGP Prefix Origin Validation State Extended Community MUST remove the
    extended community before the route is re-distributed to its peers.
    This is required regardless of whether the route-server is executing
-   RPKI origin validation or not.
+   prefix origin validation or not.
 
    Failure to do so would allow opportunistic peers to advertise routes
-   tagged with arbitrary RPKI validation results via a route-server,
-   influencing maliciously the decision process of other route-server
-   peers.
+   tagged with arbitrary prefix origin validation results via a route-
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 3]
+King, et al.              Expires June 3, 2016                  [Page 3]
 
-Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
+
+   server, influencing maliciously the decision process of other route-
+   server peers.
 
 3.3.  Error Handling at Peers
 
@@ -187,9 +190,10 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 5.  Security Considerations
 
-   A route-server could be misused to spread malicious RPKI validation
-   results.  However, peers have to trust the route-server anyway as it
-   collects and redistributes BGP routing information to other peers.
+   A route-server could be misused to spread malicious prefix origin
+   validation results.  However, peers have to trust the route-server
+   anyway as it collects and redistributes BGP routing information to
+   other peers.
 
    The introduction of a mechanisms described in this document does not
    pose a new class of attack vectors to the relationship between route-
@@ -198,12 +202,6 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 6.  References
 
 6.1.  Normative References
-
-   [I-D.ietf-sidr-rpki-validation-reconsidered]
-              Huston, G., Michaelson, G., Martinez, C., Bruijnzeels, T.,
-              Newton, A., and A. Aina, "RPKI Validation Reconsidered",
-              draft-ietf-sidr-rpki-validation-reconsidered-02 (work in
-              progress), October 2015.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
@@ -221,9 +219,11 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 4]
+
+
+King, et al.              Expires June 3, 2016                  [Page 4]
 
-Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
 6.2.  Informative References
@@ -277,9 +277,9 @@ Authors' Addresses
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 5]
+King, et al.              Expires June 3, 2016                  [Page 5]
 
-Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
    Arnaud Fenioux
@@ -333,4 +333,4 @@ Internet-DraftSignaling RPKI Validation Results from a RoutDecember 2015
 
 
 
-King, et al.              Expires June 16, 2016                 [Page 6]
+King, et al.              Expires June 3, 2016                  [Page 6]

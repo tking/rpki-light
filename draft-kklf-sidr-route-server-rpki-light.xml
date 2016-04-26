@@ -7,7 +7,6 @@
 		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
 		<!ENTITY I-D.ietf-sidr-origin-validation-signaling SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-origin-validation-signaling-07.xml">
 		<!ENTITY I-D.ietf-idr-ix-bgp-route-server SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-ix-bgp-route-server.xml">
-		<!ENTITY I-D.ietf-sidr-rpki-validation-reconsidered SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-rpki-validation-reconsidered-02.xml">
 ]>
 
 <?rfc comments="yes"?>
@@ -23,7 +22,7 @@
 
 <rfc category="std" docName="draft-kklf-sidr-route-server-rpki-light-00">
 	<front>
-		<title>Signaling RPKI Validation Results from a Route-Server to Peers</title>
+		<title>Signaling Prefix Origin Validation Results from a Route-Server to Peers</title>
 		
 		<author fullname="Thomas King" initials="T." surname="King">
 			<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
@@ -83,7 +82,7 @@
 			<t>
 				This document defines the usage of the BGP Prefix Origin Validation State Extended
 				Community <xref target="I-D.ietf-sidr-origin-validation-signaling"/> to signal
-				RPKI validation results from a route-server to its peers. Upon reception of RPKI
+				prefix origin validation results from a route-server to its peers. Upon reception of prefix origin
 				validation results peers can use this information in their local routing decision
 				process.
 			</t>
@@ -111,7 +110,7 @@
 			<t>
 				RPKI-based route origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
 				to implement and adopt. In order to boost acceptance and usage of RPKI and ultimately increase the security
-				of the Internet routing system, IXPs may provide RPKI-based route origin validation at the
+				of the Internet routing system, IXPs may provide RPKI-based prefix origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
 				
 				The result of this route origin validation is signaled to peers by using the BGP Prefix Origin Validation State
@@ -125,13 +124,13 @@
 			</t>
 		</section>
 
-		<section anchor="extendedcommunity" title="Signaling RPKI Validation Results from a Route-Server to Peers">
+		<section anchor="extendedcommunity" title="Signaling Prefix Origin Validation Results from a Route-Server to Peers">
 			<t>
 				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>)
-				is utilized for signaling RPKI validation result from a route-server to peers.
+				is utilized for signaling prefix origin validation result from a route-server to peers.
 			</t>
    			<t> 
-   				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the RPKI validation result
+   				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the prefix origin validation result
    				<xref target="RFC6811"/> as follows:
    			</t>
 
@@ -144,20 +143,20 @@
    			</texttable>
    			
    			<t>
-   				This encoding is re-used. Route-servers providing RPKI-based route origin validation set the validation state
-   				according to the RPKI validation result (see <xref target="I-D.ietf-sidr-rpki-validation-reconsidered"/>).
+   				This encoding is re-used. Route-servers providing RPKI-based origin origin validation set the validation state
+   				according to the prefix origin validation result (see <xref target="RFC6811"/>).
    			</t>
  		</section>
 
 		<section anchor="recommendation" title="Operational Recommendations">
 			<section anchor="local" title="Local Routing Decision Process">
 				<t>
-					A peer receiving an RPKI validation result from the route server MAY use the information in its
+					A peer receiving prefix origin validation result from the route server MAY use the information in its
 					own local routing decision process. The local routing decision process SHOULD apply to the rules
 					as described in <xref target="RFC6811">section 5</xref>.
 				</t>
 				<t>
-					A peer receiving an RPKI validation result from the route server MAY redistribute this information
+					A peer receiving a prefix origin validation result from the route server MAY redistribute this information
 					within its own AS.
 				</t>
 			</section>
@@ -166,10 +165,10 @@
 				<t>
 					An IXP route-server receiving routes from its peers containing the BGP Prefix Origin Validation State Extended Community
 					MUST remove the extended community before the route is re-distributed to its peers.
-					This is required regardless of whether the route-server is executing RPKI origin validation or not.
+					This is required regardless of whether the route-server is executing prefix origin validation or not.
 				</t>
 				<t>
-					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary RPKI validation
+					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary prefix origin validation
 					results via a route-server, influencing maliciously the decision process of other route-server peers.
 				</t>
 			</section>
@@ -204,7 +203,7 @@
 
 		<section anchor="security" title="Security Considerations">
 			<t>
-				A route-server could be misused to spread malicious RPKI validation results. However, peers have to trust
+				A route-server could be misused to spread malicious prefix origin validation results. However, peers have to trust
 				the route-server anyway as it collects and redistributes BGP routing information to other peers.
 			</t>
 
@@ -226,7 +225,6 @@
    		&RFC2119;
    		&RFC4360;
    		&RFC6811;
-   		&I-D.ietf-sidr-rpki-validation-reconsidered;
    		
 
 		</references>
