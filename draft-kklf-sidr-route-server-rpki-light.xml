@@ -108,17 +108,17 @@
 	<middle>
 		<section anchor="intro" title="Introduction">
 			<t>
-				RPKI-based route origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
-				to implement and adopt. In order to boost acceptance and usage of RPKI and ultimately increase the security
+				RPKI-based prefix origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
+				to implement and adopt. In order to boost acceptance and usage of prefix origin validation and ultimately increase the security
 				of the Internet routing system, IXPs may provide RPKI-based prefix origin validation at the
 				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
 				
-				The result of this route origin validation is signaled to peers by using the BGP Prefix Origin Validation State
+				The result of this prefix origin validation is signaled to peers by using the BGP Prefix Origin Validation State
 				Extended Community as introduced in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>.
 			</t>
 
 			<t>
-				Peers receiving the route origin validation result from the route-server(s) can use this
+				Peers receiving the prefix origin validation result from the route-server(s) can use this
 				information in their local routing decision process for acceptance, rejection, preference, or other
 				traffic engineering purposes of a particular route.
 			</t>
