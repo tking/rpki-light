@@ -5,15 +5,15 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: June 3, 2016                                    A. Lambrianidis
+Expires: October 3, 2016                                 A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                           December 2015
+                                                              April 2016
 
 
 Signaling Prefix Origin Validation Results from a Route-Server to Peers
-               draft-kklf-sidr-route-server-rpki-light-00
+               draft-kklf-sidr-route-server-rpki-light-01
 
 Abstract
 
@@ -46,21 +46,21 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 3, 2016.
+   This Internet-Draft will expire on October 3, 2016.
 
 
 
 
 
 
-King, et al.              Expires June 3, 2016                  [Page 1]
+King, et al.             Expires October 3, 2016                [Page 1]
 
-Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
+Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 
 
 Copyright Notice
 
-   Copyright (c) 2015 IETF Trust and the persons identified as the
+   Copyright (c) 2016 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -82,7 +82,9 @@ Table of Contents
      3.1.  Local Routing Decision Process  . . . . . . . . . . . . .   3
      3.2.  Route-Server Receiving the BGP Prefix Origin Validation
            State Extended Community  . . . . . . . . . . . . . . . .   3
-     3.3.  Error Handling at Peers . . . . . . . . . . . . . . . . .   4
+     3.3.  Information about Validity of a BGP Prefix Origin Not
+           Available at a Route-Server . . . . . . . . . . . . . . .   4
+     3.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   4
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   4
@@ -104,15 +106,16 @@ Table of Contents
 
    Peers receiving the route origin validation result from the route-
    server(s) can use this information in their local routing decision
+
+
+
+King, et al.             Expires October 3, 2016                [Page 2]
+
+Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+
+
    process for acceptance, rejection, preference, or other traffic
    engineering purposes of a particular route.
-
-
-
-King, et al.              Expires June 3, 2016                  [Page 2]
-
-Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
-
 
 2.  Signaling Prefix Origin Validation Results from a Route-Server to
     Peers
@@ -143,7 +146,7 @@ Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 3.1.  Local Routing Decision Process
 
-   A peer receiving prefix origin validation result from the route
+   A peer receiving prefix origin validation results from the route
    server MAY use the information in its own local routing decision
    process.  The local routing decision process SHOULD apply to the
    rules as described in section 5 [RFC6811].
@@ -160,20 +163,27 @@ Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
    This is required regardless of whether the route-server is executing
    prefix origin validation or not.
 
+
+
+King, et al.             Expires October 3, 2016                [Page 3]
+
+Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+
+
    Failure to do so would allow opportunistic peers to advertise routes
    tagged with arbitrary prefix origin validation results via a route-
-
-
-
-King, et al.              Expires June 3, 2016                  [Page 3]
-
-Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
-
-
    server, influencing maliciously the decision process of other route-
    server peers.
 
-3.3.  Error Handling at Peers
+3.3.  Information about Validity of a BGP Prefix Origin Not Available at
+      a Route-Server
+
+   In case information about the validity of a BGP prefix origin is not
+   available at the route-server (e.g., error in the ROA cache, CPU
+   overload) the route-server MUST NOT add the BGP Prefix Origin
+   Validation State Extended Community to the route.
+
+3.4.  Error Handling at Peers
 
    A route sent by a route-server SHOULD only contain none or one BGP
    Prefix Origin Validation State Extended Community.
@@ -208,6 +218,14 @@ Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
               RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+King, et al.             Expires October 3, 2016                [Page 4]
+
+Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+
+
    [RFC4360]  Sangli, S., Tappan, D., and Y. Rekhter, "BGP Extended
               Communities Attribute", RFC 4360, DOI 10.17487/RFC4360,
               February 2006, <http://www.rfc-editor.org/info/rfc4360>.
@@ -216,15 +234,6 @@ Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
               Austein, "BGP Prefix Origin Validation", RFC 6811, DOI
               10.17487/RFC6811, January 2013,
               <http://www.rfc-editor.org/info/rfc6811>.
-
-
-
-
-
-King, et al.              Expires June 3, 2016                  [Page 4]
-
-Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
-
 
 6.2.  Informative References
 
@@ -263,6 +272,16 @@ Authors' Addresses
    Email: daniel.kopp@de-cix.net
 
 
+
+
+
+
+
+King, et al.             Expires October 3, 2016                [Page 5]
+
+Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+
+
    Aristidis Lambrianidis
    Amsterdam Internet Exchange
    Frederiksplein 42
@@ -270,16 +289,6 @@ Authors' Addresses
    NL
 
    Email: aristidis.lambrianidis@ams-ix.net
-
-
-
-
-
-
-
-King, et al.              Expires June 3, 2016                  [Page 5]
-
-Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
    Arnaud Fenioux
@@ -324,13 +333,4 @@ Internet-DraftSignaling Prefix Origin Validation Results frDecember 2015
 
 
 
-
-
-
-
-
-
-
-
-
-King, et al.              Expires June 3, 2016                  [Page 6]
+King, et al.             Expires October 3, 2016                [Page 6]

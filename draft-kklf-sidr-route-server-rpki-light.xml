@@ -20,7 +20,7 @@
 <?rfc tocindent="yes"?>
 <?rfc tocompact="yes"?>
 
-<rfc category="std" docName="draft-kklf-sidr-route-server-rpki-light-00">
+<rfc category="std" docName="draft-kklf-sidr-route-server-rpki-light-01">
 	<front>
 		<title>Signaling Prefix Origin Validation Results from a Route-Server to Peers</title>
 		
@@ -76,7 +76,7 @@
 			</address>
 		</author>
 
-		<date month="December" year="2015" />
+		<date month="April" year="2016" />
 
 		<abstract>
 			<t>
@@ -151,7 +151,7 @@
 		<section anchor="recommendation" title="Operational Recommendations">
 			<section anchor="local" title="Local Routing Decision Process">
 				<t>
-					A peer receiving prefix origin validation result from the route server MAY use the information in its
+					A peer receiving prefix origin validation results from the route server MAY use the information in its
 					own local routing decision process. The local routing decision process SHOULD apply to the rules
 					as described in <xref target="RFC6811">section 5</xref>.
 				</t>
@@ -170,6 +170,12 @@
 				<t>
 					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary prefix origin validation
 					results via a route-server, influencing maliciously the decision process of other route-server peers.
+				</t>
+			</section>
+
+			<section anchor="routeservererror" title="Information about Validity of a BGP Prefix Origin Not Available at a Route-Server">
+				<t>
+					In case information about the validity of a BGP prefix origin is not available at the route-server (e.g., error in the ROA cache, CPU overload) the route-server MUST NOT add the BGP Prefix Origin Validation State Extended Community to the route.
 				</t>
 			</section>
 
