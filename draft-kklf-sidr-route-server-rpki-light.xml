@@ -5,6 +5,7 @@
 		<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
 		<!ENTITY RFC6811 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6811.xml">
 		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
+		<!ENTITY RFC7999 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7999.xml">
 		<!ENTITY I-D.ietf-sidr-origin-validation-signaling SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-origin-validation-signaling-07.xml">
 		<!ENTITY I-D.ietf-idr-ix-bgp-route-server SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-ix-bgp-route-server.xml">
 ]>
@@ -20,7 +21,8 @@
 <?rfc tocindent="yes"?>
 <?rfc tocompact="yes"?>
 
-<rfc category="std" docName="draft-kklf-sidr-route-server-rpki-light-01">
+<rfc category="std" docName="draft-ietf-sidr-route-server-rpki-light-01">
+
 	<front>
 		<title>Signaling Prefix Origin Validation Results from a Route-Server to Peers</title>
 		
@@ -76,7 +78,7 @@
 			</address>
 		</author>
 
-		<date month="April" year="2016" />
+		<date month="December" year="2016" />
 
 		<abstract>
 			<t>
@@ -212,7 +214,14 @@
 				A route-server could be misused to spread malicious prefix origin validation results. However, peers have to trust
 				the route-server anyway as it collects and redistributes BGP routing information to other peers.
 			</t>
-
+			<t>
+				To countermeasure DDoS attacks, it is widespread to provide blackholing services at IXPs (see <xref target="RFC7999">RFC 7999</xref>).
+				Peers are using blackholing to drop traffic, typically by announcing smaller subnets, which are unter attack.
+				Assuming, for practical reasons, peers will not reflect these announcements in their ROAs.
+				In such situations, the RPKI validation status for a prefixes, providing a ROA, would be "Invalid".
+				Given that other peers evaluating the RPKI status, this leads to a degradation of prefixes being blackholed.
+				It's recommended that peers validating the RPKI status use a adopted classification for such prefixes.
+			</t>
 			<t>
 				 The introduction of a mechanisms described in this document does not
   				 pose a new class of attack vectors to the relationship between
@@ -231,6 +240,7 @@
    		&RFC2119;
    		&RFC4360;
    		&RFC6811;
+   		&RFC7999;
    		
 
 		</references>

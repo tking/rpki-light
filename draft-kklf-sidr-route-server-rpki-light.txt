@@ -5,11 +5,11 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: October 3, 2016                                 A. Lambrianidis
+Expires: June 11, 2017                                   A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                              April 2016
+                                                        December 8, 2016
 
 
 Signaling Prefix Origin Validation Results from a Route-Server to Peers
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 3, 2016.
+   This Internet-Draft will expire on June 11, 2017.
 
 
 
 
 
 
-King, et al.             Expires October 3, 2016                [Page 1]
+King, et al.              Expires June 11, 2017                 [Page 1]
 
-Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2016
 
 
 Copyright Notice
@@ -87,31 +87,31 @@ Table of Contents
      3.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   4
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   4
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
      6.2.  Informative References  . . . . . . . . . . . . . . . . .   5
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   5
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
-   RPKI-based route origin validation [RFC6480] can be a significant
+   RPKI-based prefix origin validation [RFC6480] can be a significant
    operational burden for BGP peers to implement and adopt.  In order to
-   boost acceptance and usage of RPKI and ultimately increase the
-   security of the Internet routing system, IXPs may provide RPKI-based
-   prefix origin validation at the route-server
-   [I-D.ietf-idr-ix-bgp-route-server].  The result of this route origin
+   boost acceptance and usage of prefix origin validation and ultimately
+   increase the security of the Internet routing system, IXPs may
+   provide RPKI-based prefix origin validation at the route-server
+   [I-D.ietf-idr-ix-bgp-route-server].  The result of this prefix origin
    validation is signaled to peers by using the BGP Prefix Origin
    Validation State Extended Community as introduced in
    [I-D.ietf-sidr-origin-validation-signaling].
 
-   Peers receiving the route origin validation result from the route-
+   Peers receiving the prefix origin validation result from the route-
    server(s) can use this information in their local routing decision
 
 
 
-King, et al.             Expires October 3, 2016                [Page 2]
+King, et al.              Expires June 11, 2017                 [Page 2]
 
-Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2016
 
 
    process for acceptance, rejection, preference, or other traffic
@@ -138,7 +138,7 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 
                                   Table 1
 
-   This encoding is re-used.  Route-servers providing RPKI-based origin
+   This encoding is re-used.  Route-servers providing RPKI-based prefix
    origin validation set the validation state according to the prefix
    origin validation result (see [RFC6811]).
 
@@ -165,9 +165,9 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 
 
 
-King, et al.             Expires October 3, 2016                [Page 3]
+King, et al.              Expires June 11, 2017                 [Page 3]
 
-Internet-DraSignaling Prefix Origin Validation Results from   April 2016
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2016
 
 
    Failure to do so would allow opportunistic peers to advertise routes
@@ -205,6 +205,27 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
    anyway as it collects and redistributes BGP routing information to
    other peers.
 
+   To countermeasure DDoS attacks, it is widespread to provide
+   blackholing services at IXPs (see RFC 7999 [RFC7999]).  Peers are
+   using blackholing to drop traffic, typically by announcing smaller
+   subnets, which are unter attack.  Assuming, for practical reasons,
+   peers will not reflect these announcements in their ROAs.  In such
+   situations, the RPKI validation status for a prefixes, providing a
+   ROA, would be "Invalid".  Given that other peers evaluating the RPKI
+   status, this leads to a degradation of prefixes being blackholed.
+   It's recommended that peers evaluating the RPKI status use a adopted
+   classification for such prefixes.
+
+
+
+
+
+
+King, et al.              Expires June 11, 2017                 [Page 4]
+
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2016
+
+
    The introduction of a mechanisms described in this document does not
    pose a new class of attack vectors to the relationship between route-
    servers and peers.
@@ -214,33 +235,30 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
-              RFC2119, March 1997,
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-King, et al.             Expires October 3, 2016                [Page 4]
-
-Internet-DraSignaling Prefix Origin Validation Results from   April 2016
-
 
    [RFC4360]  Sangli, S., Tappan, D., and Y. Rekhter, "BGP Extended
               Communities Attribute", RFC 4360, DOI 10.17487/RFC4360,
               February 2006, <http://www.rfc-editor.org/info/rfc4360>.
 
    [RFC6811]  Mohapatra, P., Scudder, J., Ward, D., Bush, R., and R.
-              Austein, "BGP Prefix Origin Validation", RFC 6811, DOI
-              10.17487/RFC6811, January 2013,
+              Austein, "BGP Prefix Origin Validation", RFC 6811,
+              DOI 10.17487/RFC6811, January 2013,
               <http://www.rfc-editor.org/info/rfc6811>.
+
+   [RFC7999]  King, T., Dietzel, C., Snijders, J., Doering, G., and G.
+              Hankins, "BLACKHOLE Community", RFC 7999,
+              DOI 10.17487/RFC7999, October 2016,
+              <http://www.rfc-editor.org/info/rfc7999>.
 
 6.2.  Informative References
 
    [I-D.ietf-idr-ix-bgp-route-server]
               Jasinska, E., Hilliard, N., Raszuk, R., and N. Bakker,
               "Internet Exchange BGP Route Server", draft-ietf-idr-ix-
-              bgp-route-server-09 (work in progress), October 2015.
+              bgp-route-server-12 (work in progress), June 2016.
 
    [I-D.ietf-sidr-origin-validation-signaling]
               Mohapatra, P., Patel, K., Scudder, J., Ward, D., and R.
@@ -251,6 +269,18 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
               February 2012, <http://www.rfc-editor.org/info/rfc6480>.
+
+
+
+
+
+
+
+
+King, et al.              Expires June 11, 2017                 [Page 5]
+
+Internet-DraftSignaling Prefix Origin Validation Results frDecember 2016
+
 
 Authors' Addresses
 
@@ -270,16 +300,6 @@ Authors' Addresses
    DE
 
    Email: daniel.kopp@de-cix.net
-
-
-
-
-
-
-
-King, et al.             Expires October 3, 2016                [Page 5]
-
-Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 
 
    Aristidis Lambrianidis
@@ -313,24 +333,4 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2016
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-King, et al.             Expires October 3, 2016                [Page 6]
+King, et al.              Expires June 11, 2017                 [Page 6]
