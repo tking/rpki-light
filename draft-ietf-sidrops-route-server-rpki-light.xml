@@ -230,19 +230,20 @@
 				All security considerations described in <xref target="RFC6811">RFC RFC6811</xref> fully apply to this document. 
    			</t>
 			<t>
-				Additionally, threat agents polluting ROA cache server(s) run by IXPs can cause 
+				Additionally, threat agents polluting ROA cache server(s) run by IXP operators could cause 
 				significant operational impact, since multiple route-server 
 				clients could be affected. Peers should be vigilant as to the integrity and 
 				authenticity of the origin validation results, as they are provided by a third party, 
-				namely the IXP hosting both the route-server as well as any ROA cache server(s).
+				namely the IXP operator hosting both the route-server as well as any ROA cache server(s).
 			</t>
 			<t>
 				Therefore, a route-server could be misused to spread malicious prefix origin validation results. 
-				However, peers already trust route-server for the collection and redistribution of BGP routing information to other peers.
+				However, peers already trust the route-server for the collection, filtering (e.g. IRR database filtering), and
+				redistribution of BGP routing information to other peers. So, no change in the trust level is needed for this proposal. 
 			</t>
-			<t>
+			<!--<t>
 				Similar issues may arise due to inadvertent corruption of the ROA cache database.
-			</t>
+			</t>-->
 			<t>
 				To facilitate trust and help with peers establishing appropriate controls in mitigating
 				the risks mentioned above, IXPs SHOULD provide out-of-band means for peers to 
@@ -250,15 +251,16 @@
 			</t>
  			<t>
 				While beeing under DDoS attacks, it is a common practice for peers connected to an IXP to make use of 
-				blackholing services (see <xref target="RFC7999">RFC 7999</xref>).  Peers are
-   				using blackholing to drop traffic, typically by announcing a more specific
-   				prefix, which is under attack. 
+				blackholing services (see <xref target="RFC7999"/>). Peers are using blackholing to drop traffic, typically by announcing a more specific prefix, which is under attack. A peer SHOULD make sure that this prefix is covered by an appropriate ROA.
+
+				<!--
 				If no ROA entry exists for the more specific prefix, its
 				validation status would be "Invalid". This might be undesirable,
 				in which case it would be recommended for targeted peers
 				to either create the appropriate ROA entry as necessary,
 				of modify the MaxLength value of the existing ROA in order to match the new prefix announced for blackholing.
 				It is not necessary to create and announce a new classification for such more specific prefixes on the route-server as is may result in a non-coherent solution, therefore it is to the peer annoucing this new more specific prefix to create appropriate ROA.
+			-->
  			</t>
 
 		</section>
