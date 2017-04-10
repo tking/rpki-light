@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+
+		<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+		<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
+		<!ENTITY RFC6811 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6811.xml">
+		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
+		<!ENTITY RFC7999 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7999.xml">
+		<!ENTITY I-D.ietf-sidr-origin-validation-signaling SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-origin-validation-signaling-07.xml">
+		<!ENTITY I-D.ietf-idr-ix-bgp-route-server SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-ix-bgp-route-server.xml">
+]>
+
+<?rfc comments="yes"?>
+<?rfc compact="yes"?>
+<?rfc inline="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc subcompact="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc tocompact="yes"?>
+
+<rfc category="std" docName="draft-ietf-sidrops-route-server-rpki-light-01">
+
+	<front>
+		<title>Signaling Prefix Origin Validation Results from a Route-Server to Peers</title>
+		
+		<author fullname="Thomas King" initials="T." surname="King">
+			<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
+			<address>
+				<postal>
+					<street>Lichtstrasse 43i</street>
+					<city>Cologne</city>
+					<code>50825</code>
+					<country>DE</country>
+				</postal>
+				<email>thomas.king@de-cix.net</email>
+			</address>
+		</author>
+
+		<author fullname="Daniel Kopp" initials="D." surname="Kopp">
+			<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
+			<address>
+				<postal>
+					<street>Lichtstrasse 43i</street>
+					<city>Cologne</city>
+					<code>50825</code>
+					<country>DE</country>
+				</postal>
+				<email>daniel.kopp@de-cix.net</email>
+			</address>
+		</author>
+
+		<author fullname="Aristidis Lambrianidis" initials="A." surname="Lambrianidis">
+       		<organization abbrev="AMS-IX">Amsterdam Internet Exchange</organization>
+       		<address>
+           		<postal>
+               		<street>Frederiksplein 42</street>
+               		<code>1017 XN</code>
+               		<city>Amsterdam</city>
+               		<country>NL</country>
+           		</postal>
+           		<email>aristidis.lambrianidis@ams-ix.net</email>
+       		</address>
+  		</author>
+
+		<author fullname="Arnaud Fenioux" initials="A." surname="Fenioux">
+			<organization>France-IX</organization>
+			<address>
+				<postal>
+					<street>88 Avenue Des Ternes</street>
+					<city>Paris</city>
+					<code>75017</code>
+				<country>FR</country>
+				</postal>
+				<email>afenioux@franceix.net</email>
+			</address>
+		</author>
+
+		<date month="January" year="2017" />
+
+		<abstract>
+			<t>
+				This document defines the usage of the BGP Prefix Origin Validation State Extended
+				Community <xref target="I-D.ietf-sidr-origin-validation-signaling"/> to signal
+				prefix origin validation results from a route-server to its peers. Upon reception of prefix origin
+				validation results peers can use this information in their local routing decision
+				process.
+			</t>
+		</abstract>
+
+		<note title="Requirements Language">
+
+			<t>
+				The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+				NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
+				are to be interpreted as described in
+				<xref target="RFC2119" />
+				only when they appear in all upper
+				case. They may also appear in
+				lower or mixed case as English
+				words, without normative meaning.
+			</t>
+
+		</note>
+
+	</front>
+
+	<middle>
+		<section anchor="intro" title="Introduction">
+			<t>
+				RPKI-based prefix origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
+				to implement and adopt. In order to boost acceptance and usage of prefix origin validation and ultimately increase the security
+				of the Internet routing system, IXPs may provide RPKI-based prefix origin validation at the
+				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
+				
+				The result of this prefix origin validation is signaled to peers by using the BGP Prefix Origin Validation State
+				Extended Community as introduced in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>.
+			</t>
+
+			<t>
+				Peers receiving the prefix origin validation result from the route-server(s) can use this
+				information in their local routing decision process for acceptance, rejection, preference, or other
+				traffic engineering purposes of a particular route.
+			</t>
+		</section>
+
+		<section anchor="extendedcommunity" title="Signaling Prefix Origin Validation Results from a Route-Server to Peers">
+			<t>
+				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>)
+				is utilized for signaling prefix origin validation result from a route-server to peers.
+			</t>
+   			<t> 
+   				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the prefix origin validation result
+   				<xref target="RFC6811"/> as follows:
+   			</t>
+
+   			<texttable anchor="values">
+   				<ttcol align='center'>Value</ttcol>
+       			<ttcol align='left'>Meaning</ttcol>
+       			<c>0</c><c>Valid</c>
+        		<c>1</c><c>Not found</c>
+        		<c>2</c><c>Invalid</c>
+   			</texttable>
+   			
+   			<t>
+   				This encoding is re-used. Route-servers providing RPKI-based prefix origin validation set the validation state
+   				according to the prefix origin validation result (see <xref target="RFC6811"/>).
+   			</t>
+ 		</section>
+
+		<section anchor="recommendation" title="Operational Recommendations">
+			<section anchor="local" title="Local Routing Decision Process">
+				<t>
+					A peer receiving prefix origin validation results from the route-server MAY use the information in its
+					own local routing decision process. The local routing decision process SHOULD apply to the rules
+					as described in <xref target="RFC6811">section 5</xref>.
+				</t>
+				<t>
+					A peer receiving a prefix origin validation result from the route-server MAY redistribute this information
+					within its own AS.
+				</t>
+			</section>
+
+			<section anchor="routeserver" title="Route-Server Receiving the BGP Prefix Origin Validation State Extended Community">
+				<t>
+					An IXP route-server receiving routes from its peers containing the BGP Prefix Origin Validation State Extended Community
+					MUST remove the extended community before the route is re-distributed to its peers.
+					This is required regardless of whether the route-server is executing prefix origin validation or not.
+				</t>
+				<t>
+					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary prefix origin validation
+					results via a route-server, influencing maliciously the decision process of other route-server peers.
+				</t>
+			</section>
+
+			<section anchor="routeservererror" title="Information about Validity of a BGP Prefix Origin Not Available at a Route-Server">
+				<t>
+					In case information about the validity of a BGP prefix origin is not available at the route-server (e.g., error in the ROA cache, CPU overload) the route-server MUST NOT add the BGP Prefix Origin Validation State Extended Community to the route.
+				</t>
+			</section>
+
+			<section anchor="morespecific" title="Error Handling at Peers">
+				<t>
+					A route sent by a route-server SHOULD only contain none or one BGP Prefix Origin
+   					Validation State Extended Community.
+   				</t>
+
+				<t>
+					A peer receiving a route from a route-server containing more than one BGP Prefix Origin
+   					Validation State Extended Community SHOULD only consider the largest value (as described in
+   					<xref target="values"/>) in the validation result field and disregard the other values. Values
+   					larger than two in the validation result field MUST be disregarded.
+				</t>
+			</section>
+		</section>
+
+		<section anchor="iana" title="IANA Considerations">
+			<t>
+				None.
+			</t>
+			<!--><t>
+				The IANA is requested to register the value 0x02 for the low-order octet of the extended type in the
+				non-transitive range for the concept described in this document.
+			</t>
+			<t>
+				The extended community should be called "Route-server RPKI validation result extended community".
+			</t>-->
+		</section>
+
+		<section anchor="security" title="Security Considerations">
+			<t>
+				All security considerations described in <xref target="RFC6811">RFC RFC6811</xref> fully apply to this document. 
+   			</t>
+			<t>
+				Additionally, threat agents polluting ROA cache server(s) run by IXPs can cause 
+				significant operational impact, since multiple route-server 
+				clients could be affected. Peers should be vigilant as to the integrity and 
+				authenticity of the origin validation results, as they are provided by a third party, 
+				namely the IXP hosting both the route-server as well as any ROA cache server(s).
+			</t>
+			<t>
+				Therefore, a route-server could be misused to spread malicious prefix origin validation results. 
+				However, peers already trust route-server for the collection and redistribution of BGP routing information to other peers.
+			</t>
+			<t>
+				Similar issues may arise due to inadvertent corruption of the ROA cache database.
+			</t>
+			<t>
+				To facilitate trust and help with peers establishing appropriate controls in mitigating
+				the risks mentioned above, IXPs SHOULD provide out-of-band means for peers to 
+				ensure that the ROA validation process has not been compromised or corrupted. 
+			</t>
+ 			<t>
+				To countermeasure DDoS attacks, it is common practice to make use of 
+				blackholing services (see <xref target="RFC7999">RFC 7999</xref>).  Peers are
+   				using blackholing to drop traffic, typically by announcing a more specific
+   				prefix, which is under attack. 
+				If no ROA entry exists for the more specific prefix, its
+				validation status would be "Invalid". This might be undesirable,
+				in which case it would be recommended for targeted peers
+				to either create the appropriate ROA entry as necessary,
+				or use adopted classification for such more specific prefixes.
+ 			</t>
+			<t>
+				The introduction of a mechanisms described in this document does not
+				pose a new class of attack vectors to the relationship between
+				route-servers and peers.
+			</t>
+		</section>
+
+		
+	</middle>
+
+	<back>
+
+
+
+		<references title="Normative References">
+   		&RFC2119;
+   		&RFC4360;
+   		&RFC6811;
+   		&RFC7999;
+   		
+
+		</references>
+
+		<references title="Informative References">
+  		&RFC6480;
+  		&I-D.ietf-idr-ix-bgp-route-server;
+  		&I-D.ietf-sidr-origin-validation-signaling;
+
+  		</references>
+		
+		<!--<section anchor="acknowledgements" title="Acknowledgements">
+			<t>The authors gratefully acknowledges the contributions of:
+				<list style='symbols'>
+					<t>Petr Jiran, NIX.CZ, Milesovska 1136/5, Praha 130 00, Czech Republic, Email: pj@nix.cz</t>
+					<t>Yordan Kritski, NetIX Ltd., 3 Grigorii Gorbatenko Str., Sofia 1784, Bulgaria, Email: 
+						ykritski@netix.net</t>
+					<t>Christian Seitz, STRATO AG, Pascalstr. 10, Berlin 10587, Germany, Email: seitz@strato.de</t>
+				</list>
+			</t>
+		</section>-->
+	</back>
+
+</rfc>
