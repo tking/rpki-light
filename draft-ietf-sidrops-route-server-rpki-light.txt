@@ -76,8 +76,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  BGP Prefix Origin Validation State Utilized at the Route-
-       Server  . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  BGP Prefix Origin Validation State Utilized at Route-Servers    3
    3.  Signaling Prefix Origin Validation Results from a Route-
        Server to Peers . . . . . . . . . . . . . . . . . . . . . . .   3
    4.  Operational Recommendations . . . . . . . . . . . . . . . . .   4
@@ -86,13 +85,13 @@ Table of Contents
            State Extended Community  . . . . . . . . . . . . . . . .   4
      4.3.  Information about Validity of a BGP Prefix Origin Not
            Available at a Route-Server . . . . . . . . . . . . . . .   4
-     4.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   5
+     4.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   4
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
      7.2.  Informative References  . . . . . . . . . . . . . . . . .   6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
@@ -105,7 +104,8 @@ Table of Contents
    to peers by using the BGP Prefix Origin Validation State Extended
    Community as introduced in [RFC8097].
 
-
+   Peers receiving the prefix origin validation result from the route-
+   server(s) can use this information in their local routing decision
 
 
 
@@ -114,12 +114,10 @@ King, et al.              Expires July 5, 2017                  [Page 2]
 Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
-   Peers receiving the prefix origin validation result from the route-
-   server(s) can use this information in their local routing decision
    process for acceptance, rejection, preference, or other traffic
    engineering purposes of a particular route.
 
-2.  BGP Prefix Origin Validation State Utilized at the Route-Server
+2.  BGP Prefix Origin Validation State Utilized at Route-Servers
 
    A route-server that is aware of a BGP Prefix Origin Validation state
    for a certain route can handle this information in one of the
@@ -154,22 +152,6 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    [RFC8097] proposes an encoding of the prefix origin validation result
    [RFC6811] as follows:
 
-
-
-
-
-
-
-
-
-
-
-
-King, et al.              Expires July 5, 2017                  [Page 3]
-
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
-
-
                            +-------+-----------+
                            | Value | Meaning   |
                            +-------+-----------+
@@ -179,6 +161,14 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
                            +-------+-----------+
 
                                   Table 1
+
+
+
+
+King, et al.              Expires July 5, 2017                  [Page 3]
+
+Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+
 
    This encoding is re-used.  Route-servers providing RPKI-based prefix
    origin validation set the validation state according to the prefix
@@ -218,14 +208,6 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    overload) the route-server MUST NOT add the BGP Prefix Origin
    Validation State Extended Community to the route.
 
-
-
-
-King, et al.              Expires July 5, 2017                  [Page 4]
-
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
-
-
 4.4.  Error Handling at Peers
 
    A route sent by a route-server SHOULD only contain none or one BGP
@@ -236,6 +218,13 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    consider the largest value (as described in Table 1) in the
    validation result field and disregard the other values.  Values
    larger than two in the validation result field MUST be disregarded.
+
+
+
+King, et al.              Expires July 5, 2017                  [Page 4]
+
+Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+
 
 5.  IANA Considerations
 
@@ -266,13 +255,24 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    out-of-band means for peers to ensure that the ROA validation process
    has not been compromised or corrupted.
 
-   To countermeasure DDoS attacks, it is common practice to make use of
-   blackholing services (see RFC 7999 [RFC7999]).  Peers are using
-   blackholing to drop traffic, typically by announcing a more specific
-   prefix, which is under attack.  If no ROA entry exists for the more
-   specific prefix, its validation status would be "Invalid".  This
-   might be undesirable, in which case it would be recommended for
-   targeted peers to either create the appropriate ROA entry as
+   While beeing under DDoS attacks, it is a common practice for peers
+   connected to an IXP to make use of blackholing services (see RFC 7999
+   [RFC7999]).  Peers are using blackholing to drop traffic, typically
+   by announcing a more specific prefix, which is under attack.  If no
+   ROA entry exists for the more specific prefix, its validation status
+   would be "Invalid".  This might be undesirable, in which case it
+   would be recommended for targeted peers to either create the
+   appropriate ROA entry as necessary, of modify the MaxLength value of
+   the existing ROA in order to match the new prefix announced for
+   blackholing.  It is not necessary to create and announce a new
+   classification for such more specific prefixes on the route-server as
+   is may result in a non-coherent solution, therefore it is to the peer
+   annoucing this new more specific prefix to create appropriate ROA.
+
+7.  References
+
+
+
 
 
 
@@ -281,15 +281,6 @@ King, et al.              Expires July 5, 2017                  [Page 5]
 
 Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
-
-   necessary, or use adopted classification for such more specific
-   prefixes.
-
-   The introduction of a mechanisms described in this document does not
-   pose a new class of attack vectors to the relationship between route-
-   servers and peers.
-
-7.  References
 
 7.1.  Normative References
 
@@ -328,16 +319,6 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               Community", RFC 8097, DOI 10.17487/RFC8097, March 2017,
               <http://www.rfc-editor.org/info/rfc8097>.
 
-
-
-
-
-
-King, et al.              Expires July 5, 2017                  [Page 6]
-
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
-
-
 Authors' Addresses
 
    Thomas King
@@ -347,6 +328,14 @@ Authors' Addresses
    DE
 
    Email: thomas.king@de-cix.net
+
+
+
+
+
+King, et al.              Expires July 5, 2017                  [Page 6]
+
+Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
    Daniel Kopp
@@ -374,6 +363,17 @@ Authors' Addresses
    FR
 
    Email: afenioux@franceix.net
+
+
+
+
+
+
+
+
+
+
+
 
 
 

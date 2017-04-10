@@ -126,7 +126,7 @@
 			</t>
 		</section>
 
-		<section anchor="routeserveroperation" title="BGP Prefix Origin Validation State Utilized at the Route-Server">
+		<section anchor="routeserveroperation" title="BGP Prefix Origin Validation State Utilized at Route-Servers">
 			<t>
 				A route-server that is aware of a BGP Prefix Origin Validation state for a certain route can handle this information in one
 				of the following modes of operation:
