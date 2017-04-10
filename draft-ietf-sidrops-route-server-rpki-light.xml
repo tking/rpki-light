@@ -5,9 +5,9 @@
 		<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
 		<!ENTITY RFC6811 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6811.xml">
 		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
+		<!ENTITY RFC7947 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7947.xml">
 		<!ENTITY RFC7999 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7999.xml">
-		<!ENTITY I-D.ietf-sidr-origin-validation-signaling SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidr-origin-validation-signaling-07.xml">
-		<!ENTITY I-D.ietf-idr-ix-bgp-route-server SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-idr-ix-bgp-route-server.xml">
+		<!ENTITY RFC8097 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8097.xml">
 ]>
 
 <?rfc comments="yes"?>
@@ -83,7 +83,7 @@
 		<abstract>
 			<t>
 				This document defines the usage of the BGP Prefix Origin Validation State Extended
-				Community <xref target="I-D.ietf-sidr-origin-validation-signaling"/> to signal
+				Community <xref target="RFC8097"/> to signal
 				prefix origin validation results from a route-server to its peers. Upon reception of prefix origin
 				validation results peers can use this information in their local routing decision
 				process.
@@ -113,10 +113,10 @@
 				RPKI-based prefix origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
 				to implement and adopt. In order to boost acceptance and usage of prefix origin validation and ultimately increase the security
 				of the Internet routing system, IXPs may provide RPKI-based prefix origin validation at the
-				route-server <xref target="I-D.ietf-idr-ix-bgp-route-server"/>.
+				route-server <xref target="RFC7947"/>.
 				
 				The result of this prefix origin validation is signaled to peers by using the BGP Prefix Origin Validation State
-				Extended Community as introduced in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>.
+				Extended Community as introduced in <xref target="RFC8097"/>.
 			</t>
 
 			<t>
@@ -128,11 +128,11 @@
 
 		<section anchor="extendedcommunity" title="Signaling Prefix Origin Validation Results from a Route-Server to Peers">
 			<t>
-				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="I-D.ietf-sidr-origin-validation-signaling"/>)
+				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="RFC8097"/>)
 				is utilized for signaling prefix origin validation result from a route-server to peers.
 			</t>
    			<t> 
-   				<xref target="I-D.ietf-sidr-origin-validation-signaling"/> proposes an encoding of the prefix origin validation result
+   				<xref target="RFC8097"/> proposes an encoding of the prefix origin validation result
    				<xref target="RFC6811"/> as follows:
    			</t>
 
@@ -268,8 +268,8 @@
 
 		<references title="Informative References">
   		&RFC6480;
-  		&I-D.ietf-idr-ix-bgp-route-server;
-  		&I-D.ietf-sidr-origin-validation-signaling;
+  		&RFC7947;
+  		&RFC8097;
 
   		</references>
 		
