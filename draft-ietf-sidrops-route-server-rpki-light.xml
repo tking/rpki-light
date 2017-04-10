@@ -233,7 +233,7 @@
 				ensure that the ROA validation process has not been compromised or corrupted. 
 			</t>
  			<t>
-				To countermeasure DDoS attacks, it is common practice to make use of 
+				While beeing under DDoS attacks, it is a common practice for peers connected to an IXP to make use of 
 				blackholing services (see <xref target="RFC7999">RFC 7999</xref>).  Peers are
    				using blackholing to drop traffic, typically by announcing a more specific
    				prefix, which is under attack. 
@@ -241,13 +241,10 @@
 				validation status would be "Invalid". This might be undesirable,
 				in which case it would be recommended for targeted peers
 				to either create the appropriate ROA entry as necessary,
-				or use adopted classification for such more specific prefixes.
+				of modify the MaxLength value of the existing ROA in order to match the new prefix announced for blackholing.
+				It is not necessary to create and announce a new classification for such more specific prefixes on the route-server as is may result in a non-coherent solution, therefore it is to the peer annoucing this new more specific prefix to create appropriate ROA.
  			</t>
-			<t>
-				The introduction of a mechanisms described in this document does not
-				pose a new class of attack vectors to the relationship between
-				route-servers and peers.
-			</t>
+
 		</section>
 
 		
