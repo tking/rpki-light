@@ -133,8 +133,8 @@
 				<list style="symbols">
 					<t>Simple Tagging: The prefix origin validation state is tagged to the route as described in <xref target="extendedcommunity"/>
 					</t>
-					<t>Dropping and Tagging: Routes for which the prefix origin validation state is Invalid (according to <xref target="RFC6811"/>) are dropped by the route-server. Routes which show a prefix origin validation state of Not Found and Valid (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.</t>
-					<t>Prioritizing and Tagging: If the route-server learned for a particular prefix more than one route it removes firstly the set of Invalid routes and secondly the Not Found routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.</t>
+					<t>Dropping and Tagging: Routes for which the prefix origin validation state is "invalid" (according to <xref target="RFC6811"/>) are dropped by the route-server. Routes which show a prefix origin validation state of "not found" and "valid" (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.</t>
+					<t>Prioritizing and Tagging: If the route-server learned for a particular prefix more than one route it removes firstly the set of "invalid" routes and secondly the "not found" routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.</t>
 				</list>
 			</t>
 			<t>
@@ -155,9 +155,9 @@
    			<texttable anchor="values">
    				<ttcol align='center'>Value</ttcol>
        			<ttcol align='left'>Meaning</ttcol>
-       			<c>0</c><c>Valid</c>
-        		<c>1</c><c>Not found</c>
-        		<c>2</c><c>Invalid</c>
+       			<c>0</c><c>Lookup result = "valid"</c>
+        		<c>1</c><c>Lookup result = "not found"</c>
+        		<c>2</c><c>Lookup result = "invalid"</c>
    			</texttable>
    			
    			<t>

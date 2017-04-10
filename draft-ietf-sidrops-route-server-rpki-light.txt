@@ -126,16 +126,16 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    o  Simple Tagging: The prefix origin validation state is tagged to
       the route as described in Section 3
    o  Dropping and Tagging: Routes for which the prefix origin
-      validation state is Invalid (according to [RFC6811]) are dropped
+      validation state is "invalid" (according to [RFC6811]) are dropped
       by the route-server.  Routes which show a prefix origin validation
-      state of Not Found and Valid (according to [RFC6811]) are tagged
-      accordingly to Section 3.
+      state of "not found" and "valid" (according to [RFC6811]) are
+      tagged accordingly to Section 3.
    o  Prioritizing and Tagging: If the route-server learned for a
       particular prefix more than one route it removes firstly the set
-      of Invalid routes and secondly the Not Found routes unless the set
-      of routes is empty.  Based on the set of routes left over the BGP
-      best path section algorithm is executed.  The selected route is
-      marked accordinly to Section 3.
+      of "invalid" routes and secondly the "not found" routes unless the
+      set of routes is empty.  Based on the set of routes left over the
+      BGP best path section algorithm is executed.  The selected route
+      is marked accordinly to Section 3.
 
    A route-server MUST support the Simple Tagging mode of operation.
    Other modes of operation are OPTIONAL.  The mode of operation MAY be
@@ -152,13 +152,13 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    [RFC8097] proposes an encoding of the prefix origin validation result
    [RFC6811] as follows:
 
-                           +-------+-----------+
-                           | Value | Meaning   |
-                           +-------+-----------+
-                           |   0   | Valid     |
-                           |   1   | Not found |
-                           |   2   | Invalid   |
-                           +-------+-----------+
+                  +-------+-----------------------------+
+                  | Value | Meaning                     |
+                  +-------+-----------------------------+
+                  |   0   | Lookup result = "valid"     |
+                  |   1   | Lookup result = "not found" |
+                  |   2   | Lookup result = "invalid"   |
+                  +-------+-----------------------------+
 
                                   Table 1
 
