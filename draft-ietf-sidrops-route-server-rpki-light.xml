@@ -156,7 +156,7 @@
 			</t>
 			<t>
 				<!-- add add-path reference here -->
-				These mode of operations might be used in combination with <xref target="RFC7911"/>.
+				These mode of operations might be used in combination with <xref target="RFC7911"/> in order to allow a peer to receive all routes and take the routing decision by itself.
 			</t>
 		</section>
 

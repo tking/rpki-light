@@ -155,9 +155,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    configured by the route-server operator for a route-server instance
    or for each BGP session with a peer seperately.
 
-   These mode of operations might be used in combination with [RFC7911].
-
-
+   These mode of operations might be used in combination with [RFC7911]
+   in order to allow a peer to receive all routes and take the routing
+   decision by itself.
 
 
 
