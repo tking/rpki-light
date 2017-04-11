@@ -5,6 +5,7 @@
 		<!ENTITY RFC4360 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4360.xml">
 		<!ENTITY RFC6811 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6811.xml">
 		<!ENTITY RFC6480 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6480.xml">
+		<!ENTITY RFC7911 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7911.xml">
 		<!ENTITY RFC7947 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7947.xml">
 		<!ENTITY RFC7999 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7999.xml">
 		<!ENTITY RFC8097 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8097.xml">
@@ -130,15 +131,29 @@
 			<t>
 				A route-server that is aware of a BGP Prefix Origin Validation state for a certain route can handle this information in one
 				of the following modes of operation:
-				<list style="symbols">
-					<t>Simple Tagging: The prefix origin validation state is tagged to the route as described in <xref target="extendedcommunity"/>
+				<!-- add use cases here -->
+				<list style="hanging" hangIndent="6">
+					<t hangText="Simple Tagging:"> The prefix origin validation state is tagged to the route as described in <xref target="extendedcommunity"/>.
+					<vspace />
+					This mode of operation is like the tradional way route-servers work, however, the prefix origin validation state information is additionally available for peers.
 					</t>
-					<t>Dropping and Tagging: Routes for which the prefix origin validation state is "invalid" (according to <xref target="RFC6811"/>) are dropped by the route-server. Routes which show a prefix origin validation state of "not found" and "valid" (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.</t>
-					<t>Prioritizing and Tagging: If the route-server learned for a particular prefix more than one route it removes firstly the set of "invalid" routes and secondly the "not found" routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.</t>
+					<t hangText="Dropping and Tagging:"> Routes for which the prefix origin validation state is "invalid" (according to <xref target="RFC6811"/>) are dropped by the route-server. Routes which show a prefix origin validation state of "not found" and "valid" (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.
+					<vspace />
+					Security is higher rated than questionable reachability of a prefix by this mode of operation.
+					</t>
+					<t hangText="Prioritizing and Tagging:"> If the route-server learned for a particular prefix more than one route it removes firstly the set of "invalid" routes and secondly the "not found" routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.
+					<vspace />
+					The BGP best path selection algorithm is changed by this mode of operation in such a way that "valid" routes are preferred even if they are unfavorable by the traditional best path selection algorithm. This puts prefix origin validation on top of the best path
+					selection.
+					</t>
 				</list>
 			</t>
 			<t>
 				A route-server MUST support the Simple Tagging mode of operation. Other modes of operation are OPTIONAL. The mode of operation MAY be configured by the route-server operator for a route-server instance or for each BGP session with a peer seperately.
+			</t>
+			<t>
+				<!-- add add-path reference here -->
+				These mode of operations might be used in combination with <xref target="RFC7911"/>.
 			</t>
 		</section>
 
@@ -284,6 +299,7 @@
 		<references title="Informative References">
   		&RFC6480;
   		&RFC7947;
+  		&RFC7911;
   		&RFC8097;
 
   		</references>
