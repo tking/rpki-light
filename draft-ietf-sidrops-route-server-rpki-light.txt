@@ -12,14 +12,14 @@ Expires: July 5, 2017                                    A. Lambrianidis
                                                             January 2017
 
 
-Signaling Prefix Origin Validation Results from a Route-Server to Peers
+Signaling Prefix Origin Validation Results from a Route Server to Peers
              draft-ietf-sidrops-route-server-rpki-light-01
 
 Abstract
 
    This document defines the usage of the BGP Prefix Origin Validation
    State Extended Community [RFC8097] to signal prefix origin validation
-   results from a route-server to its peers.  Upon reception of prefix
+   results from a route server to its peers.  Upon reception of prefix
    origin validation results peers can use this information in their
    local routing decision process.
 
@@ -77,11 +77,11 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  BGP Prefix Origin Validation State Utilized at Route-Servers    3
-   3.  Signaling Prefix Origin Validation Results from a Route-
+   3.  Signaling Prefix Origin Validation Results from a Route
        Server to Peers . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Operational Recommendations . . . . . . . . . . . . . . . . .   4
      4.1.  Local Routing Decision Process  . . . . . . . . . . . . .   4
-     4.2.  Route-Server Receiving the BGP Prefix Origin Validation
+     4.2.  Route Server Receiving the BGP Prefix Origin Validation
            State Extended Community  . . . . . . . . . . . . . . . .   4
      4.3.  Information about Validity of a BGP Prefix Origin Not
            Available at a Route-Server . . . . . . . . . . . . . . .   5
@@ -99,12 +99,12 @@ Table of Contents
    operational burden for BGP peers to implement and adopt.  In order to
    boost acceptance and usage of prefix origin validation and ultimately
    increase the security of the Internet routing system, IXPs may
-   provide RPKI-based prefix origin validation at the route-server
+   provide RPKI-based prefix origin validation at the route server
    [RFC7947].  The result of this prefix origin validation is signaled
    to peers by using the BGP Prefix Origin Validation State Extended
    Community as introduced in [RFC8097].
 
-   Peers receiving the prefix origin validation result from the route-
+   Peers receiving the prefix origin validation result from the route
    server(s) can use this information in their local routing decision
 
 
@@ -119,25 +119,25 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 2.  BGP Prefix Origin Validation State Utilized at Route-Servers
 
-   A route-server that is aware of a BGP Prefix Origin Validation state
+   A route server that is aware of a BGP Prefix Origin Validation state
    for a certain route can handle this information in one of the
    following modes of operation:
 
    Simple Tagging:  The prefix origin validation state is tagged to the
        route as described in Section 3.
-       This mode of operation is like the tradional way route-servers
+       This mode of operation is like the tradional way route servers
        work, however, the prefix origin validation state information is
        additionally available for peers.
 
    Dropping and Tagging:  Routes for which the prefix origin validation
        state is "invalid" (according to [RFC6811]) are dropped by the
-       route-server.  Routes which show a prefix origin validation state
+       route server.  Routes which show a prefix origin validation state
        of "not found" and "valid" (according to [RFC6811]) are tagged
        accordingly to Section 3.
        Security is higher rated than questionable reachability of a
        prefix by this mode of operation.
 
-   Prioritizing and Tagging:  If the route-server learned for a
+   Prioritizing and Tagging:  If the route server learned for a
        particular prefix more than one route it removes firstly the set
        of "invalid" routes and secondly the "not found" routes unless
        the set of routes is empty.  Based on the set of routes left over
@@ -150,9 +150,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
        path selection.
 
 
-   A route-server MUST support the Simple Tagging mode of operation.
+   A route server MUST support the Simple Tagging mode of operation.
    Other modes of operation are OPTIONAL.  The mode of operation MAY be
-   configured by the route-server operator for a route-server instance
+   configured by the route server operator for a route server instance
    or for each BGP session with a peer seperately.
 
    These mode of operations might be used in combination with [RFC7911]
@@ -170,12 +170,12 @@ King, et al.              Expires July 5, 2017                  [Page 3]
 Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
-3.  Signaling Prefix Origin Validation Results from a Route-Server to
+3.  Signaling Prefix Origin Validation Results from a Route Server to
     Peers
 
    The BGP Prefix Origin Validation State Extended Community (as defined
    in [RFC8097]) is utilized for signaling prefix origin validation
-   result from a route-server to peers.
+   result from a route server to peers.
 
    [RFC8097] proposes an encoding of the prefix origin validation result
    [RFC6811] as follows:
@@ -190,7 +190,7 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
                                   Table 1
 
-   This encoding is re-used.  Route-servers providing RPKI-based prefix
+   This encoding is re-used.  Route servers providing RPKI-based prefix
    origin validation set the validation state according to the prefix
    origin validation result (see [RFC6811]).
 
@@ -198,25 +198,25 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 4.1.  Local Routing Decision Process
 
-   A peer receiving prefix origin validation results from the route-
+   A peer receiving prefix origin validation results from the route
    server MAY use the information in its own local routing decision
    process.  The local routing decision process SHOULD apply to the
    rules as described in section 5 [RFC6811].
 
-   A peer receiving a prefix origin validation result from the route-
+   A peer receiving a prefix origin validation result from the route
    server MAY redistribute this information within its own AS.
 
-4.2.  Route-Server Receiving the BGP Prefix Origin Validation State
+4.2.  Route Server Receiving the BGP Prefix Origin Validation State
       Extended Community
 
-   An IXP route-server receiving routes from its peers containing the
+   An IXP route server receiving routes from its peers containing the
    BGP Prefix Origin Validation State Extended Community MUST remove the
    extended community before the route is re-distributed to its peers.
-   This is required regardless of whether the route-server is executing
+   This is required regardless of whether the route server is executing
    prefix origin validation or not.
 
    Failure to do so would allow opportunistic peers to advertise routes
-   tagged with arbitrary prefix origin validation results via a route-
+   tagged with arbitrary prefix origin validation results via a route
 
 
 
@@ -226,23 +226,23 @@ King, et al.              Expires July 5, 2017                  [Page 4]
 Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
-   server, influencing maliciously the decision process of other route-
+   server, influencing maliciously the decision process of other route
    server peers.
 
 4.3.  Information about Validity of a BGP Prefix Origin Not Available at
       a Route-Server
 
    In case information about the validity of a BGP prefix origin is not
-   available at the route-server (e.g., error in the ROA cache, CPU
-   overload) the route-server MUST NOT add the BGP Prefix Origin
+   available at the route server (e.g., error in the ROA cache, CPU
+   overload) the route server MUST NOT add the BGP Prefix Origin
    Validation State Extended Community to the route.
 
 4.4.  Error Handling at Peers
 
-   A route sent by a route-server SHOULD only contain none or one BGP
+   A route sent by a route server SHOULD only contain none or one BGP
    Prefix Origin Validation State Extended Community.
 
-   A peer receiving a route from a route-server containing more than one
+   A peer receiving a route from a route server containing more than one
    BGP Prefix Origin Validation State Extended Community SHOULD only
    consider the largest value (as described in Table 1) in the
    validation result field and disregard the other values.  Values
@@ -259,13 +259,13 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
    Additionally, threat agents polluting ROA cache server(s) run by IXP
    operators could cause significant operational impact, since multiple
-   route-server clients could be affected.  Peers should be vigilant as
+   route server clients could be affected.  Peers should be vigilant as
    to the integrity and authenticity of the origin validation results,
    as they are provided by a third party, namely the IXP operator
-   hosting both the route-server as well as any ROA cache server(s).
+   hosting both the route server as well as any ROA cache server(s).
 
-   Therefore, a route-server could be misused to spread malicious prefix
-   origin validation results.  However, peers already trust the route-
+   Therefore, a route server could be misused to spread malicious prefix
+   origin validation results.  However, peers already trust the route
    server for the collection, filtering (e.g.  IRR database filtering),
    and redistribution of BGP routing information to other peers.  So, no
    change in the trust level is needed for this proposal.
@@ -293,8 +293,8 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 7.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
-              RFC2119, March 1997,
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4360]  Sangli, S., Tappan, D., and Y. Rekhter, "BGP Extended
@@ -302,13 +302,13 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               February 2006, <http://www.rfc-editor.org/info/rfc4360>.
 
    [RFC6811]  Mohapatra, P., Scudder, J., Ward, D., Bush, R., and R.
-              Austein, "BGP Prefix Origin Validation", RFC 6811, DOI
-              10.17487/RFC6811, January 2013,
+              Austein, "BGP Prefix Origin Validation", RFC 6811,
+              DOI 10.17487/RFC6811, January 2013,
               <http://www.rfc-editor.org/info/rfc6811>.
 
    [RFC7911]  Walton, D., Retana, A., Chen, E., and J. Scudder,
-              "Advertisement of Multiple Paths in BGP", RFC 7911, DOI
-              10.17487/RFC7911, July 2016,
+              "Advertisement of Multiple Paths in BGP", RFC 7911,
+              DOI 10.17487/RFC7911, July 2016,
               <http://www.rfc-editor.org/info/rfc7911>.
 
    [RFC8097]  Mohapatra, P., Patel, K., Scudder, J., Ward, D., and R.
@@ -323,8 +323,8 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               February 2012, <http://www.rfc-editor.org/info/rfc6480>.
 
    [RFC7947]  Jasinska, E., Hilliard, N., Raszuk, R., and N. Bakker,
-              "Internet Exchange BGP Route Server", RFC 7947, DOI
-              10.17487/RFC7947, September 2016,
+              "Internet Exchange BGP Route Server", RFC 7947,
+              DOI 10.17487/RFC7947, September 2016,
               <http://www.rfc-editor.org/info/rfc7947>.
 
 
@@ -339,8 +339,8 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
    [RFC7999]  King, T., Dietzel, C., Snijders, J., Doering, G., and G.
-              Hankins, "BLACKHOLE Community", RFC 7999, DOI 10.17487/
-              RFC7999, October 2016,
+              Hankins, "BLACKHOLE Community", RFC 7999,
+              DOI 10.17487/RFC7999, October 2016,
               <http://www.rfc-editor.org/info/rfc7999>.
 
 Authors' Addresses

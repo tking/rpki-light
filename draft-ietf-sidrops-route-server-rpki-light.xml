@@ -25,7 +25,7 @@
 <rfc category="std" docName="draft-ietf-sidrops-route-server-rpki-light-01">
 
 	<front>
-		<title>Signaling Prefix Origin Validation Results from a Route-Server to Peers</title>
+		<title>Signaling Prefix Origin Validation Results from a Route Server to Peers</title>
 		
 		<author fullname="Thomas King" initials="T." surname="King">
 			<organization abbrev="DE-CIX">DE-CIX Management GmbH</organization>
@@ -85,7 +85,7 @@
 			<t>
 				This document defines the usage of the BGP Prefix Origin Validation State Extended
 				Community <xref target="RFC8097"/> to signal
-				prefix origin validation results from a route-server to its peers. Upon reception of prefix origin
+				prefix origin validation results from a route server to its peers. Upon reception of prefix origin
 				validation results peers can use this information in their local routing decision
 				process.
 			</t>
@@ -114,14 +114,14 @@
 				RPKI-based prefix origin validation <xref target="RFC6480"/> can be a significant operational burden for BGP peers
 				to implement and adopt. In order to boost acceptance and usage of prefix origin validation and ultimately increase the security
 				of the Internet routing system, IXPs may provide RPKI-based prefix origin validation at the
-				route-server <xref target="RFC7947"/>.
+				route server <xref target="RFC7947"/>.
 				
 				The result of this prefix origin validation is signaled to peers by using the BGP Prefix Origin Validation State
 				Extended Community as introduced in <xref target="RFC8097"/>.
 			</t>
 
 			<t>
-				Peers receiving the prefix origin validation result from the route-server(s) can use this
+				Peers receiving the prefix origin validation result from the route server(s) can use this
 				information in their local routing decision process for acceptance, rejection, preference, or other
 				traffic engineering purposes of a particular route.
 			</t>
@@ -129,21 +129,21 @@
 
 		<section anchor="routeserveroperation" title="BGP Prefix Origin Validation State Utilized at Route-Servers">
 			<t>
-				A route-server that is aware of a BGP Prefix Origin Validation state for a certain route can handle this information in one
+				A route server that is aware of a BGP Prefix Origin Validation state for a certain route can handle this information in one
 				of the following modes of operation:
 				<!-- add use cases here -->
 				<list style="hanging" hangIndent="4">
 					<t hangText="Simple Tagging:"> The prefix origin validation state is tagged to the route as described in <xref target="extendedcommunity"/>.
 					<vspace />
-					This mode of operation is like the tradional way route-servers work, however, the prefix origin validation state information is additionally available for peers.
+					This mode of operation is like the tradional way route servers work, however, the prefix origin validation state information is additionally available for peers.
 					<vspace />
 					</t>
-					<t hangText="Dropping and Tagging:"> Routes for which the prefix origin validation state is "invalid" (according to <xref target="RFC6811"/>) are dropped by the route-server. Routes which show a prefix origin validation state of "not found" and "valid" (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.
+					<t hangText="Dropping and Tagging:"> Routes for which the prefix origin validation state is "invalid" (according to <xref target="RFC6811"/>) are dropped by the route server. Routes which show a prefix origin validation state of "not found" and "valid" (according to <xref target="RFC6811"/>) are tagged accordingly to <xref target="extendedcommunity"/>.
 					<vspace />
 					Security is higher rated than questionable reachability of a prefix by this mode of operation.
 					<vspace />
 					</t>
-					<t hangText="Prioritizing and Tagging:"> If the route-server learned for a particular prefix more than one route it removes firstly the set of "invalid" routes and secondly the "not found" routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.
+					<t hangText="Prioritizing and Tagging:"> If the route server learned for a particular prefix more than one route it removes firstly the set of "invalid" routes and secondly the "not found" routes unless the set of routes is empty. Based on the set of routes left over the BGP best path section algorithm is executed. The selected route is marked accordinly to <xref target="extendedcommunity"/>.
 					<vspace />
 					The BGP best path selection algorithm is changed by this mode of operation in such a way that "valid" routes are preferred even if they are unfavorable by the traditional best path selection algorithm. This puts prefix origin validation on top of the best path
 					selection.
@@ -152,7 +152,7 @@
 				</list>
 			</t>
 			<t>
-				A route-server MUST support the Simple Tagging mode of operation. Other modes of operation are OPTIONAL. The mode of operation MAY be configured by the route-server operator for a route-server instance or for each BGP session with a peer seperately.
+				A route server MUST support the Simple Tagging mode of operation. Other modes of operation are OPTIONAL. The mode of operation MAY be configured by the route server operator for a route server instance or for each BGP session with a peer seperately.
 			</t>
 			<t>
 				<!-- add add-path reference here -->
@@ -160,10 +160,10 @@
 			</t>
 		</section>
 
-		<section anchor="extendedcommunity" title="Signaling Prefix Origin Validation Results from a Route-Server to Peers">
+		<section anchor="extendedcommunity" title="Signaling Prefix Origin Validation Results from a Route Server to Peers">
 			<t>
 				The BGP Prefix Origin Validation State Extended Community (as defined in <xref target="RFC8097"/>)
-				is utilized for signaling prefix origin validation result from a route-server to peers.
+				is utilized for signaling prefix origin validation result from a route server to peers.
 			</t>
    			<t> 
    				<xref target="RFC8097"/> proposes an encoding of the prefix origin validation result
@@ -179,7 +179,7 @@
    			</texttable>
    			
    			<t>
-   				This encoding is re-used. Route-servers providing RPKI-based prefix origin validation set the validation state
+   				This encoding is re-used. Route servers providing RPKI-based prefix origin validation set the validation state
    				according to the prefix origin validation result (see <xref target="RFC6811"/>).
    			</t>
  		</section>
@@ -187,42 +187,42 @@
 		<section anchor="recommendation" title="Operational Recommendations">
 			<section anchor="local" title="Local Routing Decision Process">
 				<t>
-					A peer receiving prefix origin validation results from the route-server MAY use the information in its
+					A peer receiving prefix origin validation results from the route server MAY use the information in its
 					own local routing decision process. The local routing decision process SHOULD apply to the rules
 					as described in <xref target="RFC6811">section 5</xref>.
 				</t>
 				<t>
-					A peer receiving a prefix origin validation result from the route-server MAY redistribute this information
+					A peer receiving a prefix origin validation result from the route server MAY redistribute this information
 					within its own AS.
 				</t>
 			</section>
 
-			<section anchor="routeserver" title="Route-Server Receiving the BGP Prefix Origin Validation State Extended Community">
+			<section anchor="routeserver" title="Route Server Receiving the BGP Prefix Origin Validation State Extended Community">
 				<t>
-					An IXP route-server receiving routes from its peers containing the BGP Prefix Origin Validation State Extended Community
+					An IXP route server receiving routes from its peers containing the BGP Prefix Origin Validation State Extended Community
 					MUST remove the extended community before the route is re-distributed to its peers.
-					This is required regardless of whether the route-server is executing prefix origin validation or not.
+					This is required regardless of whether the route server is executing prefix origin validation or not.
 				</t>
 				<t>
 					Failure to do so would allow opportunistic peers to advertise routes tagged with arbitrary prefix origin validation
-					results via a route-server, influencing maliciously the decision process of other route-server peers.
+					results via a route server, influencing maliciously the decision process of other route server peers.
 				</t>
 			</section>
 
 			<section anchor="routeservererror" title="Information about Validity of a BGP Prefix Origin Not Available at a Route-Server">
 				<t>
-					In case information about the validity of a BGP prefix origin is not available at the route-server (e.g., error in the ROA cache, CPU overload) the route-server MUST NOT add the BGP Prefix Origin Validation State Extended Community to the route.
+					In case information about the validity of a BGP prefix origin is not available at the route server (e.g., error in the ROA cache, CPU overload) the route server MUST NOT add the BGP Prefix Origin Validation State Extended Community to the route.
 				</t>
 			</section>
 
 			<section anchor="morespecific" title="Error Handling at Peers">
 				<t>
-					A route sent by a route-server SHOULD only contain none or one BGP Prefix Origin
+					A route sent by a route server SHOULD only contain none or one BGP Prefix Origin
    					Validation State Extended Community.
    				</t>
 
 				<t>
-					A peer receiving a route from a route-server containing more than one BGP Prefix Origin
+					A peer receiving a route from a route server containing more than one BGP Prefix Origin
    					Validation State Extended Community SHOULD only consider the largest value (as described in
    					<xref target="values"/>) in the validation result field and disregard the other values. Values
    					larger than two in the validation result field MUST be disregarded.
@@ -239,7 +239,7 @@
 				non-transitive range for the concept described in this document.
 			</t>
 			<t>
-				The extended community should be called "Route-server RPKI validation result extended community".
+				The extended community should be called "Route server RPKI validation result extended community".
 			</t>-->
 		</section>
 
@@ -249,14 +249,14 @@
    			</t>
 			<t>
 				Additionally, threat agents polluting ROA cache server(s) run by IXP operators could cause 
-				significant operational impact, since multiple route-server 
+				significant operational impact, since multiple route server 
 				clients could be affected. Peers should be vigilant as to the integrity and 
 				authenticity of the origin validation results, as they are provided by a third party, 
-				namely the IXP operator hosting both the route-server as well as any ROA cache server(s).
+				namely the IXP operator hosting both the route server as well as any ROA cache server(s).
 			</t>
 			<t>
-				Therefore, a route-server could be misused to spread malicious prefix origin validation results. 
-				However, peers already trust the route-server for the collection, filtering (e.g. IRR database filtering), and
+				Therefore, a route server could be misused to spread malicious prefix origin validation results. 
+				However, peers already trust the route server for the collection, filtering (e.g. IRR database filtering), and
 				redistribution of BGP routing information to other peers. So, no change in the trust level is needed for this proposal. 
 			</t>
 			<!--<t>
@@ -277,7 +277,7 @@
 				in which case it would be recommended for targeted peers
 				to either create the appropriate ROA entry as necessary,
 				of modify the MaxLength value of the existing ROA in order to match the new prefix announced for blackholing.
-				It is not necessary to create and announce a new classification for such more specific prefixes on the route-server as is may result in a non-coherent solution, therefore it is to the peer annoucing this new more specific prefix to create appropriate ROA.
+				It is not necessary to create and announce a new classification for such more specific prefixes on the route server as is may result in a non-coherent solution, therefore it is to the peer annoucing this new more specific prefix to create appropriate ROA.
 			-->
  			</t>
 
