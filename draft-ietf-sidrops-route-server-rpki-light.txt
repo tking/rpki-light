@@ -306,21 +306,21 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               10.17487/RFC6811, January 2013,
               <http://www.rfc-editor.org/info/rfc6811>.
 
-   [RFC7999]  King, T., Dietzel, C., Snijders, J., Doering, G., and G.
-              Hankins, "BLACKHOLE Community", RFC 7999, DOI 10.17487/
-              RFC7999, October 2016,
-              <http://www.rfc-editor.org/info/rfc7999>.
+   [RFC7911]  Walton, D., Retana, A., Chen, E., and J. Scudder,
+              "Advertisement of Multiple Paths in BGP", RFC 7911, DOI
+              10.17487/RFC7911, July 2016,
+              <http://www.rfc-editor.org/info/rfc7911>.
+
+   [RFC8097]  Mohapatra, P., Patel, K., Scudder, J., Ward, D., and R.
+              Bush, "BGP Prefix Origin Validation State Extended
+              Community", RFC 8097, DOI 10.17487/RFC8097, March 2017,
+              <http://www.rfc-editor.org/info/rfc8097>.
 
 7.2.  Informative References
 
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
               February 2012, <http://www.rfc-editor.org/info/rfc6480>.
-
-   [RFC7911]  Walton, D., Retana, A., Chen, E., and J. Scudder,
-              "Advertisement of Multiple Paths in BGP", RFC 7911, DOI
-              10.17487/RFC7911, July 2016,
-              <http://www.rfc-editor.org/info/rfc7911>.
 
    [RFC7947]  Jasinska, E., Hilliard, N., Raszuk, R., and N. Bakker,
               "Internet Exchange BGP Route Server", RFC 7947, DOI
@@ -338,10 +338,10 @@ King, et al.              Expires July 5, 2017                  [Page 6]
 Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
-   [RFC8097]  Mohapatra, P., Patel, K., Scudder, J., Ward, D., and R.
-              Bush, "BGP Prefix Origin Validation State Extended
-              Community", RFC 8097, DOI 10.17487/RFC8097, March 2017,
-              <http://www.rfc-editor.org/info/rfc8097>.
+   [RFC7999]  King, T., Dietzel, C., Snijders, J., Doering, G., and G.
+              Hankins, "BLACKHOLE Community", RFC 7999, DOI 10.17487/
+              RFC7999, October 2016,
+              <http://www.rfc-editor.org/info/rfc7999>.
 
 Authors' Addresses
 

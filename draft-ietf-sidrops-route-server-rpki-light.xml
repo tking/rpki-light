@@ -294,7 +294,8 @@
    		&RFC2119;
    		&RFC4360;
    		&RFC6811;
-   		&RFC7999;
+   		&RFC7911;
+   		&RFC8097;
    		
 
 		</references>
@@ -302,8 +303,7 @@
 		<references title="Informative References">
   		&RFC6480;
   		&RFC7947;
-  		&RFC7911;
-  		&RFC8097;
+  		&RFC7999;
 
   		</references>
 		
