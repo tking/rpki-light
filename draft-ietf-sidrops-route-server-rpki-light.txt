@@ -126,18 +126,19 @@ Internet-DraSignaling Prefix Origin Validation Results from   April 2017
         0                   1                   2                   3
         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |       0x03    |      TBD1     |             Reserved          |
+       |       0x03    |      TBD1     |   Reserved    | Global Admin  :
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |                    Reserved                   |validationstate|
+       :        Global Administrator (cont.)           |validationstate|
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
    The value of the high-order octet of the extended Type field is 0x03,
    which indicates it is transitive.  The value of the low-order
-   octet of the extended Type field as assigned by IANA is TBD1.  The
-   Reserved field MUST be set to 0 and ignored upon the receipt of this
-   community.  The last octet of the extended community is an unsigned
-   integer that gives the route's validation state [RFC6811].  It can
-   assume the following values:
+   octet (Sub-Type) of the extended Type field as assigned by IANA is TBD1.
+   The Reserved field MUST be set to 0 and ignored upon the receipt of this
+   community. The Global Administrator field MUST be set to the AS number of 
+   the route server conducting the prefix origin validation.  The last octet 
+   of the extended community is an unsigned integer that gives the route's 
+   validation state [RFC6811].  It can assume the following values:
 
                      +-------+-----------------------------+
                      | Value | Meaning                     |
