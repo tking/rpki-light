@@ -5,22 +5,22 @@
 Network Working Group                                            T. King
 Internet-Draft                                                   D. Kopp
 Intended status: Standards Track                                  DE-CIX
-Expires: July 5, 2017                                    A. Lambrianidis
+Expires: October 12, 2017                                A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                            January 2017
+                                                          April 10, 2017
 
 
 Signaling Prefix Origin Validation Results from a Route Server to Peers
-             draft-ietf-sidrops-route-server-rpki-light-01
+             draft-ietf-sidrops-route-server-rpki-light-02
 
 Abstract
 
-   This document defines the usage of the BGP Prefix Origin Validation
-   State Extended Community [RFC8097] to signal prefix origin validation
-   results from a route server to its peers.  Upon reception of prefix
-   origin validation results peers can use this information in their
+   This document defines a new BGP opaque extended community, as well
+   as its usage, to signal prefix origin validation results from a 
+   route server to its peers.  Upon reception of prefix origin 
+   validation results, peers can use this information in their 
    local routing decision process.
 
 Requirements Language
@@ -46,16 +46,16 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 5, 2017.
+   This Internet-Draft will expire on October 12, 2017.
 
 
 
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 1]
+King, et al.            Expires October 12, 2017                [Page 1]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
 Copyright Notice
@@ -75,22 +75,23 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  BGP Prefix Origin Validation State Utilized at Route-Servers    3
-   3.  Signaling Prefix Origin Validation Results from a Route
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   1
+   2.  EBGP Prefix Origin Validation Extended Community. . . . . . .   2 
+   3.  BGP Prefix Origin Validation State Utilized at Route-Servers    3
+   4.  Signaling Prefix Origin Validation Results from a Route
        Server to Peers . . . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Operational Recommendations . . . . . . . . . . . . . . . . .   4
-     4.1.  Local Routing Decision Process  . . . . . . . . . . . . .   4
-     4.2.  Route Server Receiving the BGP Prefix Origin Validation
+   5.  Operational Recommendations . . . . . . . . . . . . . . . . .   4
+     5.1.  Local Routing Decision Process  . . . . . . . . . . . . .   4
+     5.2.  Route Server Receiving the EBGP Prefix Origin Validation
            State Extended Community  . . . . . . . . . . . . . . . .   4
-     4.3.  Information about Validity of a BGP Prefix Origin Not
+     5.3.  Information about Validity of a BGP Prefix Origin Not
            Available at a Route-Server . . . . . . . . . . . . . . .   5
-     4.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   5
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   6
+     5.4.  Error Handling at Peers . . . . . . . . . . . . . . . . .   5
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   6
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
@@ -101,31 +102,88 @@ Table of Contents
    increase the security of the Internet routing system, IXPs may
    provide RPKI-based prefix origin validation at the route server
    [RFC7947].  The result of this prefix origin validation is signaled
-   to peers by using the BGP Prefix Origin Validation State Extended
-   Community as introduced in [RFC8097].
+   to peers by using the EBGP Prefix Origin Validation State
+   Extended Community as introduced in this document.
 
    Peers receiving the prefix origin validation result from the route
    server(s) can use this information in their local routing decision
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 2]
+King, et al.            Expires October 12, 2017                [Page 2]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
    process for acceptance, rejection, preference, or other traffic
    engineering purposes of a particular route.
 
-2.  BGP Prefix Origin Validation State Utilized at Route-Servers
+2.  EBGP Prefix Origin Validation Extended Community
+
+    The origin validation state extended community is an opaque extended
+   community [RFC4360] with the following encoding:
+
+        0                   1                   2                   3
+        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+       |       0x03    |      TBD1     |             Reserved          |
+       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+       |                    Reserved                   |validationstate|
+       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+   The value of the high-order octet of the extended Type field is 0x03,
+   which indicates it is transitive.  The value of the low-order
+   octet of the extended Type field as assigned by IANA is TBD1.  The
+   Reserved field MUST be set to 0 and ignored upon the receipt of this
+   community.  The last octet of the extended community is an unsigned
+   integer that gives the route's validation state [RFC6811].  It can
+   assume the following values:
+
+                     +-------+-----------------------------+
+                     | Value | Meaning                     |
+                     +-------+-----------------------------+
+                     |   0   | Lookup result = "valid"     |
+                     |   1   | Lookup result = "not found" |
+                     |   2   | Lookup result = "invalid"   |
+                     +-------+-----------------------------+
+
+   If the route server is configured to support the extensions defined in 
+   this document, it SHOULD attach the origin validation state extended
+   community to BGP UPDATE messages sent to EBGP peers by mapping the
+   computed validation state in the last octet of the extended
+
+
+
+
+
+King, et al.            Expires October 12, 2017                [Page 3] 
+
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
+
+
+   community.  Similarly, a receiving BGP speaker, in the absence of
+   validation state set based on local data, SHOULD derive a validation
+   state from the last octet of the extended community, if present.
+
+   An implementation SHOULD NOT send more than one instance of the
+   origin validation state extended community.  However, if more than
+   one instance is received, an implementation MUST disregard all
+   instances other than the one with the numerically greatest validation
+   state value.  If the value received is greater than the largest
+   specified value (2), the implementation MUST apply a strategy similar
+   to attribute discard [RFC7606] by discarding the erroneous community
+   and logging the error for further analysis.
+
+3.  BGP Prefix Origin Validation State Utilized at Route-Servers
 
    A route server that is aware of a BGP Prefix Origin Validation state
    for a certain route can handle this information in one of the
    following modes of operation:
 
    Simple Tagging:  The prefix origin validation state is tagged to the
-       route as described in Section 3.
-       This mode of operation is like the tradional way route servers
+       route as described in Section 2.
+       
+       This mode of operation is like the traditional way route servers
        work, however, the prefix origin validation state information is
        additionally available for peers.
 
@@ -133,51 +191,52 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
        state is "invalid" (according to [RFC6811]) are dropped by the
        route server.  Routes which show a prefix origin validation state
        of "not found" and "valid" (according to [RFC6811]) are tagged
-       accordingly to Section 3.
-       Security is higher rated than questionable reachability of a
-       prefix by this mode of operation.
-
+       accordingly, as discussed in Section 2.
+       
+       In this mode of operation, security is rated higher than 
+       questionable reachability of a prefix.
+ 
    Prioritizing and Tagging:  If the route server learned for a
        particular prefix more than one route it removes firstly the set
        of "invalid" routes and secondly the "not found" routes unless
        the set of routes is empty.  Based on the set of routes left over
        the BGP best path section algorithm is executed.  The selected
-       route is marked accordinly to Section 3.
+       route is marked accordingly to Section 2.
        The BGP best path selection algorithm is changed by this mode of
        operation in such a way that "valid" routes are preferred even if
        they are unfavorable by the traditional best path selection
        algorithm.  This puts prefix origin validation on top of the best
        path selection.
 
-
    A route server MUST support the Simple Tagging mode of operation.
-   Other modes of operation are OPTIONAL.  The mode of operation MAY be
+   Other modes of operation are OPTIONAL. The mode of operation MAY be
    configured by the route server operator for a route server instance
-   or for each BGP session with a peer seperately.
+   or for each BGP session with a peer separately.
 
-   These mode of operations might be used in combination with [RFC7911]
-   in order to allow a peer to receive all routes and take the routing
-   decision by itself.
+   Path hiding, as originally discussed in [RFC7947], may impact 
+   end-to-end connectivity for peers receiving prefixes via route servers
+   if the best path selected contains a prefix with an "invalid" prefix
+   origin validation state, and subsequently dropped, either at the
+   peer (Simple Tagging operation mode) or the route server itself
+   (Dropping and Tagging operation mode).
+
+   However, these modes of operation might be used in combination with 
+   [RFC7911] in order to allow a peer to receive all routes and take the 
+   routing decision by itself.  
 
 
-
-
-
-
-
-King, et al.              Expires July 5, 2017                  [Page 3]
+King, et al.            Expires October 12, 2017                [Page 4]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
-3.  Signaling Prefix Origin Validation Results from a Route Server to
+4.  Signaling Prefix Origin Validation Results from a Route Server to
     Peers
 
-   The BGP Prefix Origin Validation State Extended Community (as defined
-   in [RFC8097]) is utilized for signaling prefix origin validation
-   result from a route server to peers.
+   The EBGP Prefix Origin Validation State Community is utilized for 
+   signaling prefix origin validation result from a route server to peers.
 
-   [RFC8097] proposes an encoding of the prefix origin validation result
+   This draft  proposes an encoding of the prefix origin validation result
    [RFC6811] as follows:
 
                   +-------+-----------------------------+
@@ -194,23 +253,27 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    origin validation set the validation state according to the prefix
    origin validation result (see [RFC6811]).
 
-4.  Operational Recommendations
+5.  Operational Recommendations
 
-4.1.  Local Routing Decision Process
+5.1.  Local Routing Decision Process
 
    A peer receiving prefix origin validation results from the route
    server MAY use the information in its own local routing decision
-   process.  The local routing decision process SHOULD apply to the
+   process. The local routing decision process SHOULD apply to the
    rules as described in section 5 [RFC6811].
 
    A peer receiving a prefix origin validation result from the route
    server MAY redistribute this information within its own AS.
+   
+   In cases where multiple ASes are being administered by the same
+   authority, peers MAY also redistribute this information across
+   EBGP boundaries of the authority in question.  
 
-4.2.  Route Server Receiving the BGP Prefix Origin Validation State
+5.2.  Route Server Receiving the EBGP Prefix Origin Validation State
       Extended Community
 
    An IXP route server receiving routes from its peers containing the
-   BGP Prefix Origin Validation State Extended Community MUST remove the
+   EBGP Prefix Origin Validation State Extended Community MUST remove the
    extended community before the route is re-distributed to its peers.
    This is required regardless of whether the route server is executing
    prefix origin validation or not.
@@ -221,40 +284,42 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 4]
+King, et al.            Expires October 12, 2017                [Page 5]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
    server, influencing maliciously the decision process of other route
    server peers.
 
-4.3.  Information about Validity of a BGP Prefix Origin Not Available at
+5.3.  Information about Validity of a BGP Prefix Origin Not Available at
       a Route-Server
 
    In case information about the validity of a BGP prefix origin is not
    available at the route server (e.g., error in the ROA cache, CPU
-   overload) the route server MUST NOT add the BGP Prefix Origin
+   overload) the route server MUST NOT add the EBGP Prefix Origin
    Validation State Extended Community to the route.
 
-4.4.  Error Handling at Peers
+5.4.  Error Handling at Peers
 
-   A route sent by a route server SHOULD only contain none or one BGP
+   A route sent by a route server SHOULD only contain none or one EBGP
    Prefix Origin Validation State Extended Community.
 
    A peer receiving a route from a route server containing more than one
-   BGP Prefix Origin Validation State Extended Community SHOULD only
+   EBGP Prefix Origin Validation State Extended Community SHOULD only
    consider the largest value (as described in Table 1) in the
    validation result field and disregard the other values.  Values
    larger than two in the validation result field MUST be disregarded.
 
-5.  IANA Considerations
+6.  IANA Considerations
 
-   None.
+    IANA is asked to assign a Transitive BGP Opaque Extended Community
+    as well as a Transitive Opaque Extended Community Sub-Type for
+    the purposes of this draft, as defined in Section 4. of RFC 7153.
 
-6.  Security Considerations
+7.  Security Considerations
 
-   All security considerations described in RFC RFC6811 [RFC6811] fully
+   All security considerations described in RFC 6811 [RFC6811] fully
    apply to this document.
 
    Additionally, threat agents polluting ROA cache server(s) run by IXP
@@ -277,9 +342,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 5]
+King, et al.            Expires October 12, 2017                [Page 6]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
    While beeing under DDoS attacks, it is a common practice for peers
@@ -288,9 +353,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
    by announcing a more specific prefix, which is under attack.  A peer
    SHOULD make sure that this prefix is covered by an appropriate ROA.
 
-7.  References
+8.  References
 
-7.1.  Normative References
+8.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -306,6 +371,10 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               DOI 10.17487/RFC6811, January 2013,
               <http://www.rfc-editor.org/info/rfc6811>.
 
+   [RFC7153]  Rosen, E. and Y. Rekhter, "IANA Registries for BGP
+              Extended Communities", RFC 7153, DOI 10.17487/RFC7153,
+              March 2014, <http://www.rfc-editor.org/info/rfc7153>.
+
    [RFC7911]  Walton, D., Retana, A., Chen, E., and J. Scudder,
               "Advertisement of Multiple Paths in BGP", RFC 7911,
               DOI 10.17487/RFC7911, July 2016,
@@ -316,7 +385,7 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
               Community", RFC 8097, DOI 10.17487/RFC8097, March 2017,
               <http://www.rfc-editor.org/info/rfc8097>.
 
-7.2.  Informative References
+8.2.  Informative References
 
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
@@ -333,9 +402,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 6]
+King, et al.            Expires October 12, 2017                [Page 7]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DraSignaling Prefix Origin Validation Results from   April 2017
 
 
    [RFC7999]  King, T., Dietzel, C., Snijders, J., Doering, G., and G.
@@ -389,4 +458,4 @@ Authors' Addresses
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 7]
+King, et al.            Expires October 12, 2017                [Page 7]
