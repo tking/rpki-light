@@ -423,7 +423,7 @@ Internet-DraSignaling Prefix Origin Validation Results from   November 2017
    Cologne  50825
    DE
 
-   Email: christopher.dietzel@de-cix.net
+   Email: christoph.dietzel@de-cix.net
 
 
    Daniel Kopp
