@@ -417,7 +417,7 @@ Internet-DraSignaling Prefix Origin Validation Results from   November 2017
 
   Authors' Addresses
 
-   Christopher Dietzel
+   Christoph Dietzel
    DE-CIX Management GmbH
    Lichtstrasse 43i
    Cologne  50825
