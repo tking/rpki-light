@@ -100,7 +100,7 @@ Table of Contents
 
    RPKI-based prefix origin validation [RFC6480] can be a significant
    operational burden for BGP peers to implement and adopt. In order to
-   boost acceptance and usage of prefix origin validation and ultimately
+   facilitate acceptance and usage of prefix origin validation and ultimately
    increase the security of the Internet routing system, Autonomous 
    Systems may provide RPKI-based prefix origin validation at certain
    vantage points. The result of this prefix origin validation is 
@@ -122,14 +122,14 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
 
 2.  EBGP Prefix Origin Validation Extended Community
 
-    The origin validation state extended community is a Transitive 
-    Four-Octet AS-Specific Extended Community [RFC5668] with the 
+    The origin validation state extended community is a transitive 
+    Four-octet AS Specific Extended Community [RFC5668] with the 
     following encoding:
 
         0                   1                   2                   3
         0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-       |       0x02    |      TBD1     |   Reserved    | Global Admin  :
+       |       0x02    |TBD1 (Sub-Type)|   Reserved    | Global Admin  :
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
        :        Global Administrator (cont.)           |validationstate|
        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -141,16 +141,7 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
    of this community. The Global Administrator field MUST be set to the 
    AS number of the validating BGP speaker conducting the prefix origin 
    validation. The last octet of the extended community is an unsigned 
-   integer that gives the route's validation state [RFC6811]. 
-   It can assume the following values:
-
-                     +-------+-----------------------------+
-                     | Value | Meaning                     |
-                     +-------+-----------------------------+
-                     |   0   | Lookup result = "valid"     |
-                     |   1   | Lookup result = "not found" |
-                     |   2   | Lookup result = "invalid"   |
-                     +-------+-----------------------------+
+   integer that gives the route's validation state as described in Section 4.
 
    If the validating BGP speaker is configured to support the extensions 
    defined in this document, it SHOULD attach the origin validation 
@@ -200,17 +191,17 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
        In this mode of operation, security is rated higher than 
        questionable reachability of a prefix.
  
-   Prioritizing and Tagging:  If the validating BGP speaker learned for 
+   Prioritizing and Tagging:  If the validating BGP speaker holds for 
        a particular prefix more than one route it removes firstly the 
        set of "invalid" routes and secondly the "not found" routes 
-       unless the set of routes is empty. Based on the set of routes 
-       left over the BGP best path section algorithm is executed. 
-       The selected route is marked accordingly to Section 2.
+       unless the set of routes is empty. Based on the remaining set of 
+       routes, the BGP best path section algorithm is executed. 
+       The selected route is marked according to Section 4.
        The BGP best path selection algorithm is changed by this mode of
        operation in such a way that "valid" routes are preferred even if
        they are unfavorable by the traditional best path selection
-       algorithm.  This puts prefix origin validation on top of the best
-       path selection.
+       algorithm. This mode promotes prefix origin validation to be the most 
+       important criterion for the path selection.
 
    A validating BGP speaker MUST support the Simple Tagging operation 
    mode. Other modes of operation are OPTIONAL. The mode of operation 
@@ -219,7 +210,7 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
 
    Path hiding, as originally discussed in [RFC7947], may impact 
    end-to-end connectivity for peers receiving prefixes via validating 
-   peers if the best path selected contains a prefix with an "invalid" 
+   peers, if the best path selected contains a prefix with an "invalid" 
    prefix origin validation state, and subsequently dropped, either at
    the peer (Simple Tagging operation mode) or the validating 
    BGP speaker itself (Dropping and Tagging operation mode).
@@ -265,7 +256,7 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
    A peer receiving prefix origin validation results from the route
    server MAY use the information in its own local routing decision
    process. The local routing decision process SHOULD apply to the
-   rules as described in section 5 [RFC6811].
+   rules as described in Section 5 [RFC6811].
 
    A peer receiving a prefix origin validation result from the route
    server MAY redistribute this information within its own AS.
@@ -317,7 +308,7 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
 6.  IANA Considerations
 
     IANA is asked to assign a Transitive BGP Opaque Extended Community
-    as defined in Section 4. of RFC 7153.
+    as defined in Section 4 of RFC 7153.
 
 7.  Security Considerations
 
@@ -351,7 +342,7 @@ Internet-DraSignaling Prefix Origin Validation Results fr   November 2017
 
 
    While beeing under DDoS attacks, it is a common practice for peers
-   connected to other Autonomous Systems to make use of blackholing 
+   connected to other Autonomous Systems and make use of blackholing 
    services. Peers are using blackholing to drop traffic, typically 
    by announcing a more specific prefix, which is under attack. 
    A peer SHOULD make sure that this prefix is covered by an 
