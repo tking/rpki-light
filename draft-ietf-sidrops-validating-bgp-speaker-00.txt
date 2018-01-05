@@ -5,16 +5,17 @@
 Network Working Group                                            T. King
 Internet-Draft                                                C. Dietzel
 Intended status: Standards Track                                 D. Kopp
-Expires: July 5, 2017                                             DE-CIX
+Expires: April 4, 2018                                            DE-CIX
                                                          A. Lambrianidis
                                                                   AMS-IX
                                                               A. Fenioux
                                                                France-IX
-                                                            January 2017
+                                                            October 2017
 
 
-Signaling Prefix Origin Validation Results from a Route Server to Peers
-             draft-ietf-sidrops-route-server-rpki-light-03
+     Signaling Prefix Origin Validation Results from an RPKI Origin
+                  Validating BGP Speaker to BGP Peers
+              draft-ietf-sidrops-validating-bgp-speaker-00
 
 Abstract
 
@@ -40,22 +41,21 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 5, 2017.
+   This Internet-Draft will expire on April 4, 2018.
 
 
 
 
-
-King, et al.              Expires July 5, 2017                  [Page 1]
+King, et al.              Expires April 4, 2018                 [Page 1]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
 Copyright Notice
@@ -65,7 +65,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 2]
+King, et al.              Expires April 4, 2018                 [Page 2]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
    Peers receiving a prefix origin validation result from the validating
@@ -165,9 +165,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 3]
+King, et al.              Expires April 4, 2018                 [Page 3]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
 3.  BGP Prefix Origin Validation State Utilized at Validating Peers
@@ -221,9 +221,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 4]
+King, et al.              Expires April 4, 2018                 [Page 4]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
 4.  Signaling Prefix Origin Validation Results from a Validating Peer to
@@ -277,9 +277,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 5]
+King, et al.              Expires April 4, 2018                 [Page 5]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
    Failure to do so would allow opportunistic peers to advertise routes
@@ -333,9 +333,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 6]
+King, et al.              Expires April 4, 2018                 [Page 6]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
    To facilitate trust and support with peers establishing appropriate
@@ -389,9 +389,9 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 7]
+King, et al.              Expires April 4, 2018                 [Page 7]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -445,9 +445,9 @@ Authors' Addresses
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 8]
+King, et al.              Expires April 4, 2018                 [Page 8]
 
-Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
+Internet-DrafSignaling Prefix Origin Validation Results fro October 2017
 
 
    Aristidis Lambrianidis
@@ -501,4 +501,4 @@ Internet-DrafSignaling Prefix Origin Validation Results fro January 2017
 
 
 
-King, et al.              Expires July 5, 2017                  [Page 9]
+King, et al.              Expires April 4, 2018                 [Page 9]
